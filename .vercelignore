@@ -1,0 +1,17 @@
+# Ignore backend - don't deploy to Vercel
+backend/
+*.db
+instance/
+
+# Ignore other non-frontend folders
+desktop/
+mobile/
+
+# Ignore dependencies
+node_modules/
+__pycache__/
+
+# Ignore env files
+.env
+.env.local
+*.db
