@@ -1,0 +1,225 @@
+.dashboard {
+    max-width: 1400px;
+}
+
+.dashboard-header {
+    margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #F2E3D0;
+    margin-bottom: 8px;
+}
+
+.dashboard-subtitle {
+    color: #7C7D80;
+    font-size: 16px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: #2a2a2a;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid rgba(176, 199, 221, 0.1);
+    transition: all 0.3s;
+}
+
+.stat-card:hover {
+    border-color: rgba(176, 199, 221, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(176, 199, 221, 0.2);
+}
+
+.stat-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.stat-icon {
+    font-size: 28px;
+}
+
+.stat-header h3 {
+    font-size: 18px;
+    color: #F2E3D0;
+    font-weight: 600;
+}
+
+.stat-main {
+    margin-bottom: 16px;
+}
+
+.stat-value {
+    font-size: 42px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #B0C7DD 0%, #7C7D80 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    color: #7C7D80;
+    font-size: 14px;
+}
+
+.stat-details {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.stat-badge {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    background: rgba(176, 199, 221, 0.1);
+    color: #B0C7DD;
+}
+
+.stat-badge.new {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4caf50;
+}
+
+.stat-badge.active {
+    background: rgba(176, 199, 221, 0.2);
+    color: #B0C7DD;
+}
+
+.stat-badge.warning {
+    background: rgba(255, 152, 0, 0.2);
+    color: #ff9800;
+}
+
+.stat-badge.pending {
+    background: rgba(176, 199, 221, 0.2);
+    color: #B0C7DD;
+}
+
+.stat-badge.success {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4caf50;
+}
+
+.stat-badge.today {
+    background: rgba(176, 199, 221, 0.2);
+    color: #B0C7DD;
+}
+
+.revenue-card {
+    background: linear-gradient(135deg, #B0C7DD 0%, #7C7D80 100%);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 24px rgba(176, 199, 221, 0.4);
+}
+
+.revenue-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.revenue-header h3 {
+    font-size: 20px;
+    color: white;
+    font-weight: 600;
+}
+
+.revenue-value {
+    font-size: 56px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.revenue-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+}
+
+.quick-actions {
+    background: #2a2a2a;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid rgba(176, 199, 221, 0.1);
+}
+
+.quick-actions h3 {
+    font-size: 18px;
+    color: #F2E3D0;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.action-button {
+    padding: 16px 20px;
+    background: rgba(176, 199, 221, 0.1);
+    border: 1px solid rgba(176, 199, 221, 0.3);
+    border-radius: 10px;
+    color: #B0C7DD;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.action-button:hover {
+    background: rgba(176, 199, 221, 0.2);
+    transform: translateY(-2px);
+}
+
+.dashboard-loading,
+.dashboard-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    color: #7C7D80;
+}
+
+.dashboard-error button {
+    margin-top: 16px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #B0C7DD 0%, #7C7D80 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(176, 199, 221, 0.2);
+    border-top-color: #B0C7DD;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

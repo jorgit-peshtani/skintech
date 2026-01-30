@@ -1,0 +1,42 @@
+/* Add to Users.css and Products.css */
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.refresh-btn {
+    padding: 10px 16px;
+    background: rgba(176, 199, 221, 0.2);
+    border: 2px solid rgba(176, 199, 221, 0.3);
+    border-radius: 8px;
+    color: #B0C7DD;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.refresh-btn:hover {
+    background: rgba(176, 199, 221, 0.3);
+    transform: rotate(180deg);
+}
+
+.add-user-btn,
+.add-product-btn {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #B0C7DD 0%, #7C7D80 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.add-user-btn:hover,
+.add-product-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(176, 199, 221, 0.3);
+}

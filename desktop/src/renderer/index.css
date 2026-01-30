@@ -1,0 +1,62 @@
+/* SkinTech Desktop - Color Palette */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Primary Colors */
+    --color-aerial: #B0C7DD;
+    --color-slate: #7C7D80;
+    --color-nude: #F2E3D0;
+    --color-black: #000000;
+
+    /* Shades */
+    --color-aerial-light: #d4e2ed;
+    --color-aerial-dark: #8ca9c4;
+    --color-slate-light: #9a9b9d;
+    --color-slate-dark: #5e5f61;
+    --color-nude-light: #f7eee0;
+    --color-nude-dark: #e5d1b5;
+
+    /* UI Colors */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2a2a2a;
+    --bg-card: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: var(--color-nude);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    overflow: hidden;
+}
+
+#root {
+    width: 100vw;
+    height: 100vh;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-aerial);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-aerial-dark);
+}
