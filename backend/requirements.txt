@@ -15,9 +15,8 @@ python-dotenv==1.0.0
 Werkzeug==3.0.1
 gunicorn==21.2.0
 
-# For ODT file parsing (product import)
-odfpy==1.4.1
+# Payment Processing
+stripe==7.9.0
 
 # Utils
 requests==2.31.0
-Pillow==10.1.0
