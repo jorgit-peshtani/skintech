@@ -8,7 +8,7 @@ django-cors-headers==4.3.1
 
 # Django Oscar E-commerce Framework
 django-oscar==3.2.2
-django-oscar-api==3.2.2
+django-oscar-api==3.2.4
 
 # Oscar Dependencies
 sorl-thumbnail==12.10.0
