@@ -223,6 +223,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-print(f"🛒 Django Oscar Backend Starting...")
-print(f"📊 Database: {DATABASES['default']['NAME']}")
-print(f"🌐 CORS Origins: {CORS_ALLOWED_ORIGINS}")
+print(f"Django Oscar Backend Starting...")
+print(f"Database: {DATABASES['default']['NAME']}")
+print(f"CORS Origins: {CORS_ALLOWED_ORIGINS}")
