@@ -4,6 +4,7 @@ Django settings for skintech_django project with Django Oscar.
 
 from pathlib import Path
 import os
+import dj_database_url
 from oscar.defaults import *
 
 # REST Framework configuration
