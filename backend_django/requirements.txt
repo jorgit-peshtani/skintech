@@ -12,7 +12,7 @@ django-oscar-api==3.2.4
 
 # Oscar Dependencies
 sorl-thumbnail==12.10.0
-django-tables2==2.7.0
+django-tables2==2.3.4
 django-treebeard==4.7.1
 purl==1.6
 Babel==2.14.0
