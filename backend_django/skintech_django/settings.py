@@ -4,7 +4,6 @@ Django settings for skintech_django project with Django Oscar.
 
 from pathlib import Path
 import os
-import dj_database_url
 from oscar.defaults import *
 
 # REST Framework configuration
@@ -108,7 +107,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -119,23 +117,56 @@ MIDDLEWARE = [
     'oscar.apps.basket.middleware.BasketMiddleware',
 ]
 
-# ... (Templates, WSGI)
+ROOT_URLCONF = 'skintech_django.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
+                'oscar.apps.search.context_processors.search_form',
+                'oscar.apps.checkout.context_processors.checkout',
+                'oscar.apps.communication.notifications.context_processors.notifications',
+                'oscar.core.context_processors.metadata',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'skintech_django.wsgi.application'
 
 # Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 DATABASES = {
-    'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        'ATOMIC_REQUESTS': True,
+    }
 }
 
-# ... (Password Validators, I18N)
+# Password validation
+AUTH_PASSWORD_VALIDATORS = [
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+]
+
+# Internationalization
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -159,14 +190,15 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
-# ...
-
 # CORS settings for React frontend
-CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 
-    "http://localhost:5173,http://localhost:5174,http://localhost:3000"
-).split(',')
-
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:3000",
+    "http://localhost:8081",
+    "http://localhost:8082",
+    "https://skintech.vercel.app",
+]
 CORS_ALLOW_CREDENTIALS = True
 
 # Django REST Framework
@@ -191,6 +223,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-print(f"Django Oscar Backend Starting...")
-print(f"Database: {DATABASES['default']['NAME']}")
-print(f"CORS Origins: {CORS_ALLOWED_ORIGINS}")
+print(f"🛒 Django Oscar Backend Starting...")
+print(f"📊 Database: {DATABASES['default']['NAME']}")
+print(f"🌐 CORS Origins: {CORS_ALLOWED_ORIGINS}")
