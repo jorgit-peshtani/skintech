@@ -2,11 +2,9 @@
 
 from django.db import migrations, connection
 
-from oscar.checks import is_postgres
-
 def create_materialized_view(apps, schema_editor):
     """Creates a materialized view for PostgreSQL."""
-    if is_postgres():
+    if connection.vendor == 'postgresql':
         with connection.cursor() as cursor:
             cursor.execute("""
                 CREATE MATERIALIZED VIEW IF NOT EXISTS catalogue_product_category_hierarchy AS
@@ -33,7 +31,7 @@ def create_materialized_view(apps, schema_editor):
 
 def drop_materialized_view(apps, schema_editor):
     """Drops the materialized view if rolling back."""
-    if is_postgres():
+    if connection.vendor == 'postgresql':
         with connection.cursor() as cursor:
             cursor.execute("DROP MATERIALIZED VIEW IF EXISTS catalogue_product_category_hierarchy;")
             cursor.execute("DROP INDEX IF EXISTS catalogue_product_category_hierarchy_idx;")
