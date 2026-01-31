@@ -107,6 +107,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -115,52 +116,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'oscar.apps.basket.middleware.BasketMiddleware',
-]
-
-ROOT_URLCONF = 'skintech_django.urls'
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.i18n',
-                'oscar.apps.search.context_processors.search_form',
-                'oscar.apps.checkout.context_processors.checkout',
-                'oscar.apps.communication.notifications.context_processors.notifications',
-                'oscar.core.context_processors.metadata',
-            ],
-        },
-    },
-]
-
-WSGI_APPLICATION = 'skintech_django.wsgi.application'
-
-import dj_database_url
-
-# ... (Previous imports)
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-(%gly^t^q9$s$!t2w(^@ya%addg=y5pz_i=ld*z^w05bk%sl5)')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
-
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app', '.onrender.com']
-
-# ... (INSTALLED_APPS)
-
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # Add Whitenoise here
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    # ... (Rest of middleware)
 ]
 
 # ... (Templates, WSGI)
@@ -235,6 +190,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-print(f"🛒 Django Oscar Backend Starting...")
-print(f"📊 Database: {DATABASES['default']['NAME']}")
-print(f"🌐 CORS Origins: {CORS_ALLOWED_ORIGINS}")
+print(f"Django Oscar Backend Starting...")
+print(f"Database: {DATABASES['default']['NAME']}")
+print(f"CORS Origins: {CORS_ALLOWED_ORIGINS}")
