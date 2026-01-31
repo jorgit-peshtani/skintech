@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { productsAPI } from '../services/api';
+import { useCartStore } from '../store/cartStore';
+import toast from 'react-hot-toast';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
@@ -10,6 +12,8 @@ const ProductDetail = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [quantity, setQuantity] = useState(1);
+
+    const { addItem } = useCartStore();
 
     useEffect(() => {
         fetchProduct();
@@ -28,8 +32,19 @@ const ProductDetail = () => {
     };
 
     const handleAddToCart = () => {
-        // Add to cart logic here
-        console.log(`Adding ${quantity} of product ${id} to cart`);
+        if (!product) return;
+
+        // Ensure we pass the transformed/cleaned product data if needed, but product here comes from API
+        // which might use 'title' instead of 'name'. Let's normalize it like in Products.jsx
+        const productToAdd = {
+            ...product,
+            name: product.title || product.name,
+            stock_quantity: product.stock || product.stock_quantity,
+            image_url: product.image || product.image_url
+        };
+
+        addItem(productToAdd, quantity);
+        toast.success(`Added ${quantity} ${productToAdd.name} to cart`);
     };
 
     if (loading) {

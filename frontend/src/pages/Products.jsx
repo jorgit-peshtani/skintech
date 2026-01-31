@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { productsAPI } from '../services/api';
+import { useCartStore } from '../store/cartStore';
+import toast from 'react-hot-toast';
 import './Products.css';
 
 const Products = () => {
@@ -9,6 +11,9 @@ const Products = () => {
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [categories, setCategories] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+
+    const { addItem } = useCartStore();
 
     useEffect(() => {
         fetchCategories();
@@ -17,8 +22,7 @@ const Products = () => {
 
     const fetchCategories = async () => {
         try {
-            const response = await productsAPI.getCategories();
-            setCategories(['All', ...(response.data.categories || [])]);
+            setCategories(['All', 'Cleanser', 'Moisturiser', 'Sunscreen', 'Toner']);
         } catch (error) {
             console.error('Error fetching categories:', error);
             setCategories(['All']);
@@ -27,17 +31,29 @@ const Products = () => {
 
     const fetchProducts = async () => {
         try {
+            if (products.length === 0) {
+                setLoading(true);
+            }
             const params = {};
             if (selectedCategory && selectedCategory !== 'All') {
                 params.category = selectedCategory;
             }
-            if (searchTerm) {
-                params.search = searchTerm;
+            if (debouncedSearchTerm) {
+                params.search = debouncedSearchTerm;
             }
 
             const response = await productsAPI.getProducts(params);
-            console.log('Products:', response.data);
-            setProducts(response.data.products || []);
+
+            const productsData = response.data.results || [];
+
+            const transformedProducts = productsData.map(product => ({
+                ...product,
+                name: product.title,
+                stock_quantity: product.stock,
+                image_url: product.image
+            }));
+
+            setProducts(transformedProducts);
         } catch (error) {
             console.error('Error fetching products:', error);
             setProducts([]);
@@ -47,10 +63,22 @@ const Products = () => {
     };
 
     useEffect(() => {
-        if (!loading) {
+        const timer = setTimeout(() => {
+            setDebouncedSearchTerm(searchTerm);
+        }, 300);
+        return () => clearTimeout(timer);
+    }, [searchTerm]);
+
+    useEffect(() => {
+        if (products.length > 0 || debouncedSearchTerm || selectedCategory !== 'All') {
             fetchProducts();
         }
-    }, [selectedCategory, searchTerm]);
+    }, [selectedCategory, debouncedSearchTerm]);
+
+    const handleAddToCart = (product) => {
+        addItem(product);
+        toast.success(`Added ${product.name} to cart`);
+    };
 
     if (loading) {
         return (
@@ -70,7 +98,6 @@ const Products = () => {
                     <p className="subtitle">Discover our curated selection of premium skincare</p>
                 </div>
 
-                {/* Search and Filters */}
                 <div className="products-controls">
                     <input
                         type="text"
@@ -93,7 +120,6 @@ const Products = () => {
                     </div>
                 </div>
 
-                {/* Products Grid */}
                 {products.length === 0 ? (
                     <div className="no-products">
                         <p>No products found{selectedCategory !== 'All' ? ` in ${selectedCategory}` : ''}.</p>
@@ -108,7 +134,7 @@ const Products = () => {
                                 <div key={product.id} className="product-card">
                                     <div className="product-image">
                                         <img
-                                            src={product.image_url || 'https://via.placeholder.com/300x300?text=SkinTech'}
+                                            src={product.image || 'https://via.placeholder.com/300x300?text=SkinTech'}
                                             alt={product.name}
                                             onError={(e) => {
                                                 e.target.src = 'https://via.placeholder.com/300x300?text=SkinTech';
@@ -133,7 +159,13 @@ const Products = () => {
                                         )}
                                         <div className="product-footer">
                                             <div className="product-price">${parseFloat(product.price).toFixed(2)}</div>
-                                            <button className="add-to-cart-btn">Add to Cart</button>
+                                            <button
+                                                className="add-to-cart-btn"
+                                                onClick={() => handleAddToCart(product)}
+                                                disabled={product.stock_quantity === 0}
+                                            >
+                                                {product.stock_quantity === 0 ? 'Out of Stock' : 'Add to Cart'}
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

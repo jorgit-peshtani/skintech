@@ -91,7 +91,7 @@ function Dashboard() {
                 {/* Products Stats */}
                 <div className="stat-card products">
                     <div className="stat-header">
-                        <span className="stat-icon">🛍️</span>
+                        <span className="stat-icon">📦</span>
                         <h3>Products</h3>
                     </div>
                     <div className="stat-main">
@@ -99,9 +99,6 @@ function Dashboard() {
                         <div className="stat-label">Total Products</div>
                     </div>
                     <div className="stat-details">
-                        <div className="stat-item">
-                            <span className="stat-badge">{stats.products.categories} Categories</span>
-                        </div>
                         <div className="stat-item">
                             <span className="stat-badge warning">{stats.products.outOfStock} Out of Stock</span>
                         </div>
@@ -155,7 +152,7 @@ function Dashboard() {
                     <span className="stat-icon">💰</span>
                     <h3>Revenue</h3>
                 </div>
-                <div className="revenue-value">${stats.orders.revenue.toLocaleString()}</div>
+                <div className="revenue-value">${(stats.orders?.revenue || 0).toLocaleString()}</div>
                 <div className="revenue-label">Total Revenue</div>
                 <div className="revenue-pulse"></div>
             </div>

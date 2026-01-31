@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>API Test</title>
+</head>
+
+<body>
+    <h1>Web Products API Test</h1>
+    <div id="result"></div>
+
+    <script>
+        fetch('http://localhost:8000/api/web/products/')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('result').innerHTML = `
+                    <h2>Success! Got ${data.results.length} products</h2>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            })
+            .catch(err => {
+                document.getElementById('result').innerHTML = `
+                    <h2 style="color:red">Error!</h2>
+                    <pre>${err}</pre>
+                `;
+            });
+    </script>
+</body>
+
+</html>

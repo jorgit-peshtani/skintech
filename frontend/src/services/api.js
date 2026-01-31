@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // Use environment variable for API URL - works for both local and production
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+// Django Oscar backend (port 8000)
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 console.log('API URL:', API_URL); // For debugging deployment
 
@@ -67,21 +68,21 @@ export const authAPI = {
     changePassword: (data) => api.post('/auth/change-password', data),
 };
 
-// Products API
+// Products API - Custom web endpoint with full details
 export const productsAPI = {
-    getProducts: (params) => api.get('/products', { params }),
-    getProduct: (id) => api.get(`/products/${id}`),
-    getCategories: () => api.get('/products/categories'),
-    getBrands: () => api.get('/products/brands'),
+    getProducts: (params) => api.get('/web/products/', { params }),
+    getProduct: (id) => api.get(`/web/products/${id}/`),
+    getCategories: () => api.get('/web/products/categories'),
+    getBrands: () => api.get('/web/products/brands'),
     getReviews: (productId, params) => api.get(`/products/${productId}/reviews`, { params }),
     createReview: (productId, data) => api.post(`/products/${productId}/reviews`, data),
-    createProduct: (data) => api.post('/products', data),
-    updateProduct: (id, data) => api.put(`/products/${id}`, data),
+    createProduct: (data) => api.post('/web/products/', data),
+    updateProduct: (id, data) => api.put(`/web/products/${id}/`, data),
 };
 
 // Scan API
 export const scanAPI = {
-    uploadAndScan: (formData) => api.post('/scan/upload', formData, {
+    uploadScan: (formData) => api.post('/scan/upload', formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },

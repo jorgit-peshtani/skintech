@@ -30,7 +30,8 @@ function createWindow() {
             console.error('Failed to load dev server:', err);
             console.error('Make sure Vite is running: npm run dev:vite');
         });
-        mainWindow.webContents.openDevTools();
+        // DevTools disabled by default - press F12 to open manually
+        // mainWindow.webContents.openDevTools();
     } else {
         // Production mode - load from built files
         console.log('Running in PRODUCTION mode - loading from dist folder');

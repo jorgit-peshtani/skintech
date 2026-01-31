@@ -80,7 +80,7 @@ function Users() {
 
         try {
             await usersAPI.delete(userId);
-            alert('User deleted successfully');
+            // alert('User deleted successfully'); // Removed to prevent focus issues
             loadUsers();
         } catch (err) {
             console.error('Failed to delete user:', err);
@@ -94,7 +94,6 @@ function Users() {
         try {
             if (modalMode === 'add') {
                 await usersAPI.create(formData);
-                alert('User created successfully');
             } else {
                 // For edit, only send password if it's not empty
                 const updateData = { ...formData };
@@ -102,7 +101,6 @@ function Users() {
                     delete updateData.password;
                 }
                 await usersAPI.update(selectedUser.id, updateData);
-                alert('User updated successfully');
             }
             setShowModal(false);
             loadUsers();

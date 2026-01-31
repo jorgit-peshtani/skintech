@@ -58,7 +58,6 @@ function Login({ onLogin }) {
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="admin@skintech.com"
                             required
-                            autoFocus
                         />
                     </div>
 

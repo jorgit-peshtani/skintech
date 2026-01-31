@@ -12,11 +12,12 @@ function Products() {
     const [modalMode, setModalMode] = useState('add');
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [formData, setFormData] = useState({
-        name: '',
+        title: '',
         description: '',
         price: '',
         category: '',
-        stock_quantity: '',
+        brand: '',
+        stock: '',
         image_url: ''
     });
 
@@ -42,11 +43,12 @@ function Products() {
         setModalMode('add');
         setSelectedProduct(null);
         setFormData({
-            name: '',
+            title: '',
             description: '',
             price: '',
             category: '',
-            stock_quantity: '',
+            brand: '',
+            stock: '',
             image_url: ''
         });
         setShowModal(true);
@@ -56,12 +58,13 @@ function Products() {
         setModalMode('edit');
         setSelectedProduct(product);
         setFormData({
-            name: product.name,
+            title: product.title || '',
             description: product.description || '',
-            price: product.price,
-            category: product.category,
-            stock_quantity: product.stock_quantity,
-            image_url: product.image_url || ''
+            price: product.price || '',
+            category: product.category || '',
+            brand: product.brand || '',
+            stock: product.stock || 0,
+            image_url: product.image || ''
         });
         setShowModal(true);
     };
@@ -82,16 +85,39 @@ function Products() {
         e.preventDefault();
 
         try {
+            // Create FormData object for file upload
+            const data = new FormData();
+            data.append('title', formData.title);
+            data.append('description', formData.description || '');
+            data.append('price', formData.price);
+            data.append('stock', formData.stock);
+            data.append('category', formData.category || '');
+            data.append('brand', formData.brand || '');
+
+            // Append image file if selected
+            if (formData.imageFile) {
+                data.append('image', formData.imageFile);
+            } else if (formData.image_url) {
+                // If it's a remote URL and no new file selected, send it to preserve/restore
+                // Only send if it's not a blob (blobs are local only, but if we have blob we usually have imageFile)
+                if (!formData.image_url.startsWith('blob:')) {
+                    data.append('image_url', formData.image_url);
+                }
+            }
+
             if (modalMode === 'add') {
-                await productsAPI.create(formData);
-                alert('Product created successfully');
+                await productsAPI.create(data);
+                // alert('Product created successfully');
             } else {
-                await productsAPI.update(selectedProduct.id, formData);
-                alert('Product updated successfully');
+                await productsAPI.update(selectedProduct.id, data);
+                // alert('Product updated successfully');
             }
             setShowModal(false);
             loadProducts();
+            // Clear form state
+            setFormData({ title: '', description: '', price: '', stock: '', category: '', image_url: '', imageFile: null });
         } catch (err) {
+            console.error('Error saving product:', err);
             alert(err.response?.data?.error || 'Failed to save product');
         }
     };
@@ -99,7 +125,7 @@ function Products() {
     const categories = ['all', ...new Set(products.map(p => p.category).filter(Boolean))];
 
     const filteredProducts = products.filter(product => {
-        const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesSearch = (product.title || '').toLowerCase().includes(searchTerm.toLowerCase());
         if (filterCategory === 'all') return matchesSearch;
         return matchesSearch && product.category === filterCategory;
     });
@@ -167,6 +193,7 @@ function Products() {
                         <tr>
                             <th>ID</th>
                             <th>Product</th>
+                            <th>Brand</th>
                             <th>Category</th>
                             <th>Price</th>
                             <th>Stock</th>
@@ -178,25 +205,28 @@ function Products() {
                             <tr key={product.id}>
                                 <td>#{product.id}</td>
                                 <td className="product-name">
-                                    {product.image_url && (
-                                        <img src={product.image_url} alt={product.name} className="product-image" />
+                                    {product.image && (
+                                        <img src={product.image} alt={product.title} className="product-image" />
                                     )}
-                                    <span>{product.name}</span>
+                                    <span>{product.title}</span>
+                                </td>
+                                <td>
+                                    <span className="brand-text">{product.brand || '-'}</span>
                                 </td>
                                 <td>
                                     <span className="category-badge">{product.category || 'Uncategorized'}</span>
                                 </td>
-                                <td className="price">${parseFloat(product.price).toFixed(2)}</td>
+                                <td className="price">${parseFloat(product.price || 0).toFixed(2)}</td>
                                 <td>
-                                    <span className={`stock-badge ${product.stock_quantity > 0 ? 'in-stock' : 'out-of-stock'}`}>
-                                        {product.stock_quantity} units
+                                    <span className={`stock-badge ${product.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
+                                        {product.stock || 0} units
                                     </span>
                                 </td>
                                 <td className="action-buttons">
-                                    <button className="action-btn edit" onClick={() => handleEditProduct(product)} title="Edit">
+                                    <button className="btn-edit" onClick={() => handleEditProduct(product)}>
                                         ✏️
                                     </button>
-                                    <button className="action-btn delete" onClick={() => handleDeleteProduct(product.id, product.name)} title="Delete">
+                                    <button className="btn-delete" onClick={() => handleDeleteProduct(product.id, product.title)}>
                                         🗑️
                                     </button>
                                 </td>
@@ -222,30 +252,93 @@ function Products() {
                         </div>
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
-                                <label>Name *</label>
-                                <input type="text" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
+                                <label>Product Name</label>
+                                <input
+                                    type="text"
+                                    value={formData.title || ''}
+                                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Brand</label>
+                                <input
+                                    type="text"
+                                    value={formData.brand || ''}
+                                    onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
+                                    placeholder="e.g. CeraVe, Ordinary"
+                                />
                             </div>
                             <div className="form-group">
                                 <label>Description</label>
-                                <textarea value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} rows="3" />
+                                <textarea
+                                    value={formData.description || ''}
+                                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                    rows="3"
+                                />
                             </div>
                             <div className="form-row">
                                 <div className="form-group">
-                                    <label>Price *</label>
-                                    <input type="number" step="0.01" required value={formData.price} onChange={(e) => setFormData({ ...formData, price: e.target.value })} />
+                                    <label>Price ($)</label>
+                                    <input
+                                        type="number"
+                                        step="0.01"
+                                        value={formData.price || ''}
+                                        onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                                        required
+                                    />
                                 </div>
                                 <div className="form-group">
-                                    <label>Stock *</label>
-                                    <input type="number" required value={formData.stock_quantity} onChange={(e) => setFormData({ ...formData, stock_quantity: e.target.value })} />
+                                    <label>Stock Quantity</label>
+                                    <input
+                                        type="number"
+                                        value={formData.stock || ''}
+                                        onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
+                                        required
+                                    />
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label>Category *</label>
-                                <input type="text" required value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} />
+                                <label>Category</label>
+                                <input
+                                    type="text"
+                                    value={formData.category || ''}
+                                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                                    placeholder="e.g., Cleanser, Moisturiser, Sunscreen"
+                                />
                             </div>
                             <div className="form-group">
                                 <label>Image URL</label>
-                                <input type="url" value={formData.image_url} onChange={(e) => setFormData({ ...formData, image_url: e.target.value })} />
+                                <div className="file-input-group">
+                                    <input
+                                        type="text"
+                                        value={formData.image_url || ''}
+                                        onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                                        placeholder="Enter image URL or browse..."
+                                    />
+                                    <input
+                                        type="file"
+                                        id="image-file-input"
+                                        accept="image/*"
+                                        value=""
+                                        style={{ display: 'none' }}
+                                        onChange={(e) => {
+                                            const file = e.target.files[0];
+                                            if (file) {
+                                                // Create a local file path
+                                                const filePath = URL.createObjectURL(file);
+                                                setFormData({ ...formData, image_url: filePath, imageFile: file });
+                                            }
+                                        }}
+                                    />
+                                    <button
+                                        type="button"
+                                        className="browse-btn"
+                                        onClick={() => document.getElementById('image-file-input').click()}
+                                    >
+                                        📁 Browse
+                                    </button>
+                                </div>
                             </div>
                             <div className="modal-actions">
                                 <button type="button" className="btn-cancel" onClick={() => setShowModal(false)}>Cancel</button>

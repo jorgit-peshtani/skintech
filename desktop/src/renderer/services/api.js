@@ -1,15 +1,12 @@
 import axios from 'axios';
 
-// Admin Backend URL (separate from web/mobile backend)
-// Desktop app uses dedicated admin backend on port 3001
-const API_URL = 'http://localhost:3001/api';
+// Django Simple Backend URL (bypasses Oscar middleware)
+// Desktop app now uses simple Django endpoints
+const API_URL = 'http://localhost:8000/simple';
 
 // Create axios instance
 const api = axios.create({
     baseURL: API_URL,
-    headers: {
-        'Content-Type': 'application/json',
-    },
 });
 
 // Request interceptor to add auth token
@@ -40,39 +37,39 @@ api.interceptors.response.use(
 
 // Auth API
 export const authAPI = {
-    login: (credentials) => api.post('/auth/login', credentials),
+    login: (credentials) => api.post('/login/', credentials),
 };
 
-// Stats API
+// Stats API (using simple endpoint)
 export const statsAPI = {
-    getDashboard: () => api.get('/admin/stats/dashboard'),
+    getDashboard: () => api.get('/stats/'),
 };
 
-// Users API
+// Users API (using simple endpoint)
 export const usersAPI = {
-    getAll: () => api.get('/admin/users'),
-    getById: (id) => api.get(`/admin/users/${id}`),
-    toggleStatus: (id) => api.post(`/admin/users/${id}/toggle`),
-    create: (userData) => api.post('/admin/users', userData),
-    update: (id, userData) => api.put(`/admin/users/${id}`, userData),
-    delete: (id) => api.delete(`/admin/users/${id}`),
+    getAll: () => api.get('/users/'),
+    getById: (id) => api.get(`/users/${id}/`),
+    toggleStatus: (id) => api.post(`/users/${id}/toggle/`),
+    create: (userData) => api.post('/users/', userData),
+    update: (id, userData) => api.put(`/users/${id}/`, userData),
+    delete: (id) => api.delete(`/users/${id}/`),
 };
 
-// Products API
+// Products API (Simple endpoints for desktop)
 export const productsAPI = {
-    getAll: () => api.get('/admin/products'),
-    create: (productData) => api.post('/admin/products', productData),
-    update: (id, productData) => api.put(`/admin/products/${id}`, productData),
-    delete: (id) => api.delete(`/admin/products/${id}`),
+    getAll: () => api.get('/products/'),
+    create: (productData) => api.post('/products/', productData),
+    update: (id, productData) => api.post(`/products/${id}/`, productData),
+    delete: (id) => api.delete(`/products/${id}/`),
 };
 
-// Orders API
+// Orders API (Simple endpoints for desktop)
 export const ordersAPI = {
-    getAll: () => api.get('/admin/orders'),
-    getById: (id) => api.get(`/admin/orders/${id}`),
-    updateStatus: (id, status) => api.put(`/admin/orders/${id}`, { status }),
-    update: (id, orderData) => api.put(`/admin/orders/${id}`, orderData),
-    delete: (id) => api.delete(`/admin/orders/${id}`),
+    getAll: () => api.get('/orders/'),
+    getById: (id) => api.get(`/orders/${id}/`),
+    updateStatus: (id, status) => api.put(`/orders/${id}/`, { status }),
+    update: (id, orderData) => api.put(`/orders/${id}/`, orderData),
+    delete: (id) => api.delete(`/orders/${id}/`),
 };
 
 export default api;

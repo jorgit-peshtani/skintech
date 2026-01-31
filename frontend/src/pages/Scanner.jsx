@@ -239,48 +239,60 @@ const Scanner = () => {
                                 </div>
                             </div>
 
-                            {/* Ingredients List */}
-                            <div className="ingredients-results">
-                                <h3>Detected Ingredients ({scanResult.ingredients?.length || 0})</h3>
+                            {(() => {
+                                const ingredients = scanResult.identified_ingredients || scanResult.ingredients || [];
+                                return (
+                                    <div className="ingredients-results">
+                                        <h3>Detected Ingredients ({ingredients.length})</h3>
 
-                                {scanResult.ingredients && scanResult.ingredients.length > 0 ? (
-                                    <div className="ingredient-list">
-                                        {scanResult.ingredients.map((ingredient, index) => (
-                                            <div key={index} className="ingredient-item">
-                                                <div className="ingredient-header">
-                                                    <h4>{ingredient.name}</h4>
-                                                    <span className={`safety-badge ${getSafetyColor(ingredient.safety_rating || 5)}`}>
-                                                        {ingredient.safety_rating || 'N/A'}/10
-                                                    </span>
-                                                </div>
-                                                {ingredient.description && (
-                                                    <p className="ingredient-desc">{ingredient.description}</p>
-                                                )}
-                                                {ingredient.effects && Object.keys(ingredient.effects).length > 0 && (
-                                                    <div className="effects">
-                                                        <strong>Effects:</strong>
-                                                        <ul>
-                                                            {Object.entries(ingredient.effects).map(([skinType, effect]) => (
-                                                                <li key={skinType}>
-                                                                    <span className="skin-type">{skinType}:</span> {effect}
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                )}
-                                                {ingredient.warnings && ingredient.warnings.length > 0 && (
-                                                    <div className="warnings">
-                                                        <AlertCircle size={16} />
-                                                        <span>{ingredient.warnings.join(', ')}</span>
-                                                    </div>
-                                                )}
+                                        {ingredients.length > 0 && (
+                                            <div className="ingredients-summary">
+                                                <p><strong>Found:</strong> {ingredients.map(i => i.name).join(', ')}</p>
                                             </div>
-                                        ))}
+                                        )}
+
+                                        {ingredients.length > 0 ? (
+                                            <div className="ingredient-list">
+                                                {[...ingredients]
+                                                    .sort((a, b) => (b.safety_rating || 0) - (a.safety_rating || 0))
+                                                    .map((ingredient, index) => (
+                                                        <div key={index} className="ingredient-item">
+                                                            <div className="ingredient-header">
+                                                                <h4>{ingredient.name}</h4>
+                                                                <span className={`safety-badge ${getSafetyColor(ingredient.safety_rating || 5)}`}>
+                                                                    Risk: {ingredient.safety_rating || 5}/10
+                                                                </span>
+                                                            </div>
+                                                            {ingredient.description && (
+                                                                <p className="ingredient-desc">{ingredient.description}</p>
+                                                            )}
+                                                            {ingredient.effects && Object.keys(ingredient.effects).length > 0 && (
+                                                                <div className="effects">
+                                                                    <strong>Effects:</strong>
+                                                                    <ul>
+                                                                        {Object.entries(ingredient.effects).map(([skinType, effect]) => (
+                                                                            <li key={skinType}>
+                                                                                <span className="skin-type">{skinType}:</span> {effect}
+                                                                            </li>
+                                                                        ))}
+                                                                    </ul>
+                                                                </div>
+                                                            )}
+                                                            {ingredient.warnings && ingredient.warnings.length > 0 && (
+                                                                <div className="warnings">
+                                                                    <AlertCircle size={16} />
+                                                                    <span>{ingredient.warnings.join(', ')}</span>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    ))}
+                                            </div>
+                                        ) : (
+                                            <p className="no-results">No ingredients detected. Please try again with a clearer image.</p>
+                                        )}
                                     </div>
-                                ) : (
-                                    <p className="no-results">No ingredients detected. Please try again with a clearer image.</p>
-                                )}
-                            </div>
+                                );
+                            })()}
 
                             {/* Recommendations */}
                             {scanResult.recommendations && scanResult.recommendations.length > 0 && (

@@ -1,0 +1,43 @@
+# Django Oscar E-commerce Backend
+
+# Django Core
+Django==5.0
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.3.1
+django-cors-headers==4.3.1
+
+# Django Oscar E-commerce Framework
+django-oscar==3.2.2
+django-oscar-api==3.2.2
+
+# Oscar Dependencies
+sorl-thumbnail==12.10.0
+django-tables2==2.7.0
+django-treebeard==4.7.1
+purl==1.6
+Babel==2.14.0
+django-phonenumber-field==7.3.0
+phonenumbers==8.13.29
+django-widget-tweaks==1.5.0
+
+# Database
+# Database
+psycopg2-binary==2.9.9
+dj-database-url==2.1.0
+
+# Static Files
+whitenoise==6.6.0
+
+# Utilities
+python-dotenv==1.0.0
+Pillow==10.1.0
+gunicorn==21.2.0
+
+# Payment
+stripe==7.9.0
+
+# Search (for Oscar)
+django-haystack==3.2.1
+
+# Utils
+requests==2.31.0

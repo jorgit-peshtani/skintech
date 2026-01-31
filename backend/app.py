@@ -99,9 +99,10 @@ def create_app(config_name='development'):
     
     return app
 
+# Create the application instance for Gunicorn
+app = create_app(os.getenv('FLASK_CONFIG', 'default'))
+
 if __name__ == '__main__':
-    app = create_app()
-    
     # Create tables
     with app.app_context():
         db.create_all()
@@ -125,4 +126,4 @@ if __name__ == '__main__':
     print("="*60)
     print("\nPress Ctrl+C to stop the server\n")
     
-    app.run(debug=True, host='0.0.0.0', port=3000)
+    app.run(debug=True, host='0.0.0.0', port=5000)

@@ -1,37 +1,33 @@
 @echo off
 echo ========================================
-echo Starting SkinTech MOBILE APPLICATION
+echo Starting SkinTech MOBILE APP
 echo ========================================
 echo.
 echo This will start:
-echo   1. Main Backend (port 3000)
-echo   2. Mobile App (Expo)
+echo   1. Django Backend (Port 8000)
+echo   2. Mobile Metro Bundler
 echo.
-echo Press Ctrl+C in any window to stop
+echo Note: If the backend is already running, you can close the extra window.
+echo.
 echo ========================================
 echo.
 
-cd backend
-start cmd /k "echo === MAIN BACKEND (Port 3000) === && python app.py"
+cd backend_django
+start cmd /k "echo === DJANGO BACKEND (Port 8000) === && title SkinTech Backend && python manage.py runserver 0.0.0.0:8000"
 
-timeout /t 3 /nobreak > nul
+timeout /t 5 /nobreak > nul
 
 cd ..\mobile
-start cmd /k "echo === MOBILE APP (Expo) === && npm start"
+echo Checking and installing dependencies...
+call npm install
+echo.
+echo ========================================
+echo        MOBILE APP STARTED
+echo ========================================
+echo.
+echo 1. Make sure your Android Emulator is open
+echo 2. Press 'a' in this terminal to connect
+echo.
+call npm start
 
-echo.
-echo ========================================
-echo Both services are starting...
-echo ========================================
-echo Backend:   http://localhost:3000
-echo Mobile:    Check Expo DevTools
-echo ========================================
-echo.
-echo IMPORTANT: Run ADB port forwarding:
-echo   adb reverse tcp:3000 tcp:3000
-echo.
-echo Demo login:
-echo   Email:    user@example.com
-echo   Password: password123
-echo ========================================
 pause
