@@ -45,6 +45,12 @@ export const useAuthStore = create((set) => ({
     logout: () => {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
+
+        // Clear cart to prevent next user from seeing old items
+        import('./cartStore').then(({ useCartStore }) => {
+            useCartStore.getState().clearCart();
+        });
+
         set({ user: null, profile: null, isAuthenticated: false });
     },
 
