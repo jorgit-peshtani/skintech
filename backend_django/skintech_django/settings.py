@@ -42,7 +42,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-(%gly^t^q9$s$!t2w(^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app', '.railway.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app', '.railway.app', '.onrender.com', 'skintech.onrender.com']
 
 # Site ID for Django sites framework (required by Oscar)
 SITE_ID = 1
