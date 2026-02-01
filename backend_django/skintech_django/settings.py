@@ -156,6 +156,15 @@ import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
 
+# Render Deployment Check
+if os.getenv('RENDER'):
+    print("🚀 RENDER ENVIRONMENT DETECTED")
+    if not db_from_env:
+        print("⚠️  WARNING: DATABASE_URL is missing! Using ephemeral SQLite (Data will be lost).")
+        print("    Please set DATABASE_URL in Render Environment Variables.")
+    else:
+        print(f"✅ Connected to External Database: {DATABASES['default']['HOST']}")
+
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},

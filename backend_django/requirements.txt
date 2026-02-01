@@ -44,3 +44,4 @@ django-haystack==3.2.1
 
 # Utils
 requests==2.31.0
+easyocr==1.7.1
