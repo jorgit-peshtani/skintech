@@ -89,7 +89,7 @@ const Profile = () => {
                                                     {new Date(order.date_placed || order.created_at).toLocaleDateString()}
                                                 </div>
                                             </td>
-                                            <td><strong>${parseFloat(order.total_incl_tax || order.total || 0).toFixed(2)}</strong></td>
+                                            <td><strong>€{parseFloat(order.total_incl_tax || order.total || 0).toFixed(2)}</strong></td>
                                             <td>
                                                 <span className={`status-badge status-${(order.status || 'pending').toLowerCase()}`}>
                                                     {order.status || 'Pending'}

@@ -44,14 +44,16 @@ const About = () => {
                     <div className="story-content">
                         <h2>Our Story</h2>
                         <p>
-                            SkinTech began when our founders realized how confusing cosmetic labels typically are.
-                            With thousands of chemical names and marketing Jargon, finding safe and effective products
-                            was a guessing game.
+                            SkinTech started with a simple question: "What are we really putting on our skin?"
+                            In a market flooded with complex chemical names and misleading marketing, our team saw a need for clarity.
+                            As a group of passionate developers and innovators, we combined our technical expertise to bridge the gap between
+                            dermatological science and daily consumer choices.
                         </p>
                         <p>
-                            We set out to build a tool that empowers consumers. By combining a database of over
-                            10,000 ingredients with verified scientific research, we created the SkinTech Scanner—your
-                            personal dermatologist in your pocket.
+                            What began as a collaborative diploma project has evolved into a powerful AI-driven platform.
+                            We believe transparency shouldn't be a luxury—it should be the standard. By decoding over 10,000 ingredients
+                            instantaneously, SkinTech empowers you to make safer, smarter, and more personalized skincare decisions
+                            without needing a chemistry degree.
                         </p>
                     </div>
                 </div>
@@ -66,22 +68,29 @@ const About = () => {
                             <div className="member-avatar">
                                 <Users size={40} color="#7C7D80" />
                             </div>
-                            <h3>Sarah Johnson</h3>
-                            <span>Lead Dermatologist</span>
+                            <h3>Uendi Peza</h3>
+                            <span>CEO and Project Manager</span>
                         </div>
                         <div className="team-member">
                             <div className="member-avatar">
                                 <Users size={40} color="#7C7D80" />
                             </div>
-                            <h3>David Chen</h3>
-                            <span>AI Engineer</span>
+                            <h3>Elena Goçi</h3>
+                            <span>Graphic Designer & Desktop Backend</span>
                         </div>
                         <div className="team-member">
                             <div className="member-avatar">
                                 <Users size={40} color="#7C7D80" />
                             </div>
-                            <h3>Maria Garcia</h3>
-                            <span>Product Head</span>
+                            <h3>Eriko Prençe</h3>
+                            <span>Android & iOS Developer</span>
+                        </div>
+                        <div className="team-member">
+                            <div className="member-avatar">
+                                <Users size={40} color="#7C7D80" />
+                            </div>
+                            <h3>Edmir Hoxha</h3>
+                            <span>Fullstack Developer</span>
                         </div>
                     </div>
                 </div>

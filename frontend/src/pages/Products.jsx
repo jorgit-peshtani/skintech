@@ -164,7 +164,7 @@ const Products = () => {
                                             </div>
                                         )}
                                         <div className="product-footer">
-                                            <div className="product-price">${parseFloat(product.price).toFixed(2)}</div>
+                                            <div className="product-price">€{parseFloat(product.price).toFixed(2)}</div>
                                             <button
                                                 className="add-to-cart-btn"
                                                 onClick={() => handleAddToCart(product)}

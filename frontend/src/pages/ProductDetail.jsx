@@ -110,7 +110,7 @@ const ProductDetail = () => {
                         <h1 className="product-title">{product.name}</h1>
 
                         <div className="product-price">
-                            <span className="current-price">${parseFloat(product.price).toFixed(2)}</span>
+                            <span className="current-price">€{parseFloat(product.price).toFixed(2)}</span>
                         </div>
 
                         {/* Stock Status */}

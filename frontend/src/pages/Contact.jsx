@@ -48,14 +48,14 @@ const Contact = () => {
                             <Phone className="icon" />
                             <div>
                                 <h3>Phone</h3>
-                                <p>+1 (555) 123-4567</p>
+                                <p>069 663 6727</p>
                             </div>
                         </div>
                         <div className="info-item">
                             <MapPin className="icon" />
                             <div>
                                 <h3>Office</h3>
-                                <p>123 Innovation Drive<br />Tech City, CA 90210</p>
+                                <p>Rruga Hermann Gmeiner, Sauk, Albania</p>
                             </div>
                         </div>
                     </div>

@@ -105,8 +105,8 @@ const Cart = () => {
                                 </div>
 
                                 <div className="item-price">
-                                    <span className="price">${(item.price * item.quantity).toFixed(2)}</span>
-                                    <span className="price-per-unit">${item.price} each</span>
+                                    <span className="price">€{(item.price * item.quantity).toFixed(2)}</span>
+                                    <span className="price-per-unit">€{item.price} each</span>
                                 </div>
 
                                 <button
@@ -126,7 +126,7 @@ const Cart = () => {
 
                         <div className="summary-row">
                             <span>Subtotal</span>
-                            <span>${cartTotal.toFixed(2)}</span>
+                            <span>€{cartTotal.toFixed(2)}</span>
                         </div>
 
                         <div className="summary-row">
@@ -135,27 +135,27 @@ const Cart = () => {
                                 {cartTotal >= 50 ? (
                                     <span className="free-shipping">FREE</span>
                                 ) : (
-                                    `$${(5.99).toFixed(2)}`
+                                    `€${(5.99).toFixed(2)}`
                                 )}
                             </span>
                         </div>
 
                         {cartTotal < 50 && (
                             <div className="shipping-note">
-                                Add ${(50 - cartTotal).toFixed(2)} more for free shipping!
+                                Add €{(50 - cartTotal).toFixed(2)} more for free shipping!
                             </div>
                         )}
 
                         <div className="summary-row">
                             <span>Tax (estimated)</span>
-                            <span>${(cartTotal * 0.1).toFixed(2)}</span>
+                            <span>€{(cartTotal * 0.1).toFixed(2)}</span>
                         </div>
 
                         <div className="summary-divider"></div>
 
                         <div className="summary-row total">
                             <span>Total</span>
-                            <span>${(cartTotal + (cartTotal >= 50 ? 0 : 5.99) + (cartTotal * 0.1)).toFixed(2)}</span>
+                            <span>€{(cartTotal + (cartTotal >= 50 ? 0 : 5.99) + (cartTotal * 0.1)).toFixed(2)}</span>
                         </div>
 
                         <button className="btn btn-primary checkout-btn" onClick={handleCheckout}>
