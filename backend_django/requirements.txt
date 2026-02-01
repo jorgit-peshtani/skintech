@@ -32,16 +32,8 @@ whitenoise==6.6.0
 python-dotenv==1.0.0
 Pillow==10.1.0
 gunicorn==21.2.0
-opencv-python-headless==4.8.1.78
-numpy==1.26.4
-pytesseract==0.3.10
-
-# Payment
-stripe==7.9.0
-
-# Search (for Oscar)
-django-haystack==3.2.1
-
-# Utils
-requests==2.31.0
-easyocr==1.7.1
+# Removed heavy ML libraries for Render memory optimization
+# opencv-python-headless==4.8.1.78
+# numpy==1.26.4
+# pytesseract==0.3.10
+# easyocr==1.7.1

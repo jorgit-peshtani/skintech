@@ -4,7 +4,10 @@ import os
 import sys
 
 
+import dotenv
+
 def main():
+    dotenv.load_dotenv()
     """Run administrative tasks."""
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "skintech_django.settings")
     try:

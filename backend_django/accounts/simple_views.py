@@ -360,7 +360,8 @@ def simple_products(request, product_id=None):
             
             # Common Logic: Category & Image
             if 'category' in data:
-                from oscar.apps.catalogue.models import Category
+                from oscar.core.loading import get_model
+                Category = get_model('catalogue', 'Category')
                 if product.categories.exists():
                      product.categories.clear() # Clear for update, or just add for create (doesn't hurt)
                 category, created = Category.objects.get_or_create(name=data['category'])
@@ -368,7 +369,8 @@ def simple_products(request, product_id=None):
             
             image_url = None
             if image_file:
-                from oscar.apps.catalogue.models import ProductImage
+                from oscar.core.loading import get_model
+                ProductImage = get_model('catalogue', 'ProductImage')
                 product.images.all().delete() # Clear old images
                 img = ProductImage.objects.create(
                     product=product,
