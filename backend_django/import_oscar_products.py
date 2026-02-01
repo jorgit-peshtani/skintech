@@ -59,7 +59,7 @@ for cat_name in ['Cleanser', 'Moisturiser', 'Sunscreen', 'Toner']:
         cat = Category.objects.get(name=cat_name)
         print(f"  📁 Category '{cat_name}' already exists")
     except Category.DoesNotExist:
-        cat = Category.add_root(name=cat_name, slug=cat_name.lower())
+        cat = Category.add_root(name=cat_name, slug=cat_name.lower(), exclude_from_menu=False)
         print(f"  ✨ Created category '{cat_name}'")
     categories[cat_name] = cat
 print(f"✅ Categories ready: {len(categories)}")
