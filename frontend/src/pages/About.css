@@ -1,0 +1,145 @@
+.about-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #F2E3D0 0%, #d4e2ed 100%);
+    padding-bottom: 4rem;
+}
+
+.about-header {
+    background: linear-gradient(135deg, #B0C7DD 0%, #7C7D80 100%);
+    padding: 6rem 0 4rem;
+    color: white;
+    text-align: center;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+.about-title {
+    font-size: 3rem;
+    font-family: var(--font-display);
+    margin-bottom: 1rem;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.about-subtitle {
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+    line-height: 1.6;
+    animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+.mission-section {
+    padding: 4rem 0;
+    margin-top: -2rem;
+}
+
+.mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.mission-card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: var(--radius-xl);
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(176, 199, 221, 0.3);
+}
+
+.mission-card:hover {
+    transform: translateY(-5px);
+}
+
+.mission-icon {
+    color: #8ca9c4;
+    margin-bottom: 1rem;
+}
+
+.mission-card h3 {
+    color: #4B5563;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.mission-card p {
+    color: #6B7280;
+    line-height: 1.6;
+}
+
+.story-section {
+    padding: 4rem 0;
+    background: white;
+    margin: 2rem 0;
+}
+
+.story-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.story-content h2 {
+    font-size: 2.5rem;
+    color: #374151;
+    margin-bottom: 2rem;
+    font-family: var(--font-display);
+}
+
+.story-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4B5563;
+    margin-bottom: 1.5rem;
+}
+
+.team-section {
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.team-section h2 {
+    font-size: 2.5rem;
+    color: #374151;
+    margin-bottom: 3rem;
+    font-family: var(--font-display);
+}
+
+.team-grid {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    width: 250px;
+    box-shadow: var(--shadow-md);
+}
+
+.member-avatar {
+    width: 100px;
+    height: 100px;
+    background: #f3f4f6;
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.team-member h3 {
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.team-member span {
+    color: #8ca9c4;
+    font-weight: 500;
+}

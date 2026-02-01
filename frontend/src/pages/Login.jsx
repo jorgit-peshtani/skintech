@@ -44,7 +44,7 @@ const Login = () => {
                             required
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={isLoading}>
+                    <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1.5rem' }} disabled={isLoading}>
                         {isLoading ? 'Logging in...' : 'Login'}
                     </button>
                 </form>

@@ -11,8 +11,8 @@ const Home = () => {
                     <div className="hero-content">
                         <div className="hero-text">
                             <h1 className="hero-title">
-                                Discover Your Perfect
-                                <span className="gradient-text"> Skincare</span>
+                                Discover Your Perfect{' '}
+                                <span className="gradient-text">Skincare</span>
                             </h1>
                             <p className="hero-description">
                                 AI-powered ingredient analysis and personalized product recommendations
