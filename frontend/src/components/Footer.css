@@ -1,6 +1,6 @@
 .footer {
     background: var(--dark-bg);
-    color: var(--gray-300);
+    color: #4B5563;
     padding: 4rem 0 2rem;
     margin-top: 4rem;
 }
@@ -41,13 +41,13 @@
 .footer-logo .logo-text {
     font-size: 1.25rem;
     font-weight: 800;
-    color: white;
+    color: #111827;
 }
 
 .footer-description {
     font-size: 0.875rem;
     line-height: 1.6;
-    color: var(--gray-400);
+    color: #4B5563;
     margin-bottom: 1rem;
 }
 
@@ -77,7 +77,7 @@
 .footer-title {
     font-size: 1rem;
     font-weight: 700;
-    color: white;
+    color: #111827;
     margin-bottom: 0.5rem;
 }
 
@@ -90,7 +90,7 @@
 
 .footer-links a {
     font-size: 0.875rem;
-    color: var(--gray-400);
+    color: #4B5563;
     text-decoration: none;
     transition: color var(--transition-fast);
 }
@@ -111,7 +111,7 @@
     align-items: center;
     gap: 0.75rem;
     font-size: 0.875rem;
-    color: var(--gray-400);
+    color: #4B5563;
 }
 
 .footer-contact svg {
