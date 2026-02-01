@@ -4,6 +4,7 @@ Django settings for skintech_django project with Django Oscar.
 
 from pathlib import Path
 import os
+import dj_database_url
 from oscar.defaults import *
 
 # REST Framework configuration
@@ -142,6 +143,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'skintech_django.wsgi.application'
 
 # Database
+# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -149,6 +151,10 @@ DATABASES = {
         'ATOMIC_REQUESTS': True,
     }
 }
+
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -223,6 +229,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-print(f"Django Oscar Backend Starting...")
-print(f"Database: {DATABASES['default']['NAME']}")
-print(f"CORS Origins: {CORS_ALLOWED_ORIGINS}")
+# print(f"Django Oscar Backend Starting...")
+# print(f"Database: {DATABASES['default']['NAME']}")
+# print(f"CORS Origins: {CORS_ALLOWED_ORIGINS}")

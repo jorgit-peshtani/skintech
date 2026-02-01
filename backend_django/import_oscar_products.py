@@ -11,8 +11,13 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'skintech_django.settings')
 django.setup()
 
-from oscar.apps.catalogue.models import Product, ProductClass, Category
-from oscar.apps.partner.models import Partner, StockRecord
+from oscar.core.loading import get_model
+
+Product = get_model('catalogue', 'Product')
+ProductClass = get_model('catalogue', 'ProductClass')
+Category = get_model('catalogue', 'Category')
+Partner = get_model('partner', 'Partner')
+StockRecord = get_model('partner', 'StockRecord')
 from decimal import Decimal
 
 print("=" * 70)

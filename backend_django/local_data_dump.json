@@ -1,0 +1,1701 @@
+[
+{
+  "model": "auth.group",
+  "fields": {
+    "name": "All Oscar Dashboard Permissions",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$VefLgRH2yVvzHQIbzIHkmQ$4vnc6EyBmEJuK02FSWbAnY4IyuOVcr2DVaf3hLXelHM=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@skintech.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-01-30T14:57:05.216Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$niMohhmZzllYIophiQOH6L$A6KIEpYF79+rN61xs1icI5uBuKShJ2JF/5gq7nSV6AQ=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "jp",
+    "first_name": "",
+    "last_name": "",
+    "email": "jpeshtani@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-30T17:58:20.540Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$bHMbsGsNSWx3eHM51u2rWH$7lZyxw/xURYhIwT5BXHKzAsUtY+Gxaa4QCdKRjrTuZ4=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "webtest",
+    "first_name": "",
+    "last_name": "",
+    "email": "webtest@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-30T18:22:20.994Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$xj8K3iE61bS7bdqqo34uSb$3YE9sNS5rR8PBOdQZcOzkqXzT9aftiixCm+xppwsHmQ=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "dwad",
+    "first_name": "dwadwa",
+    "last_name": "dwadaw",
+    "email": "jpshtani@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-30T18:23:33.756Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$J3kuBNPT3ilsFa8msuWqQO$DrLeoqVF+Wrxdafr9X+vE6kEp3Cr1IytSjcYip+BaKo=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "null",
+    "first_name": "",
+    "last_name": "",
+    "email": "nulldotexe@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-01-31T01:49:36.079Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$w9mJhfxkIfggJd0LCYgBok$qA7tcKHuFeorrWqdn4ThREVlc65t+fVKBUp5ufmQaAg=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "dwa",
+    "first_name": "dwa",
+    "last_name": "dwa",
+    "email": "jpeshtani@gmai.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-01-31T01:50:49.088Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sites.site",
+  "fields": {
+    "domain": "example.com",
+    "name": "example.com"
+  }
+},
+{
+  "model": "catalogue.product",
+  "pk": 1,
+  "fields": {
+    "structure": "standalone",
+    "is_public": true,
+    "upc": "",
+    "parent": null,
+    "title": "CeraVe - Hydrating Cleanser",
+    "slug": "cerave-hydrating-cleanser",
+    "description": "Gentle hydrating cleanser with ceramides and hyaluronic acid",
+    "meta_title": null,
+    "meta_description": null,
+    "priority": 0,
+    "product_class": 1,
+    "rating": null,
+    "date_created": "2026-01-30T14:18:51.345Z",
+    "date_updated": "2026-01-30T14:18:51.345Z",
+    "is_discountable": true,
+    "code": null,
+    "brand": null,
+    "product_options": []
+  }
+},
+{
+  "model": "catalogue.product",
+  "pk": 2,
+  "fields": {
+    "structure": "standalone",
+    "is_public": true,
+    "upc": "",
+    "parent": null,
+    "title": "La Roche-Posay - Effaclar Gel Cleanser",
+    "slug": "la-roche-posay-effaclar-gel-cleanser",
+    "description": "Purifying foaming gel for oily sensitive skin",
+    "meta_title": null,
+    "meta_description": null,
+    "priority": 0,
+    "product_class": 1,
+    "rating": null,
+    "date_created": "2026-01-30T14:18:51.369Z",
+    "date_updated": "2026-01-30T14:18:51.369Z",
+    "is_discountable": true,
+    "code": null,
+    "brand": null,
+    "product_options": []
+  }
+},
+{
+  "model": "catalogue.product",
+  "pk": 3,
+  "fields": {
+    "structure": "standalone",
+    "is_public": true,
+    "upc": "",
+    "parent": null,
+    "title": "The Ordinary - Squalane Cleanser",
+    "slug": "the-ordinary-squalane-cleanser",
+    "description": "Gentle cleansing balm with squalane",
+    "meta_title": null,
+    "meta_description": null,
+    "priority": 0,
+    "product_class": 1,
+    "rating": null,
+    "date_created": "2026-01-30T14:18:51.389Z",
+    "date_updated": "2026-01-30T14:18:51.389Z",
+    "is_discountable": true,
+    "code": null,
+    "brand": null,
+    "product_options": []
+  }
+},
+{
+  "model": "catalogue.product",
+  "pk": 4,
+  "fields": {
+    "structure": "standalone",
+    "is_public": true,
+    "upc": "",
+    "parent": null,
+    "title": "Cetaphil - Gentle Skin Cleanser",
+    "slug": "cetaphil-gentle-skin-cleanser",
+    "description": "Mild, non-irritating formula for sensitive skin",
+    "meta_title": null,
+    "meta_description": null,
+    "priority": 0,
+    "product_class": 1,
+    "rating": null,
+    "date_created": "2026-01-30T14:18:51.411Z",
+    "date_updated": "2026-01-30T14:18:51.411Z",
+    "is_discountable": true,
+    "code": null,
+    "brand": null,
+    "product_options": []
+  }
+},
+{
+  "model": "catalogue.product",
+  "pk": 5,
+  "fields": {
+    "structure": "standalone",
+    "is_public": true,
+    "upc": "",
+    "parent": null,
+    "title": "CeraVe - Moisturising Cream",
+    "slug": "cerave-moisturising-cream",
+    "description": "Daily moisturizer with ceramides for dry skin",
+    "meta_title": null,
+    "meta_description": null,
+    "priority": 0,
+    "product_class": 1,
+    "rating": null,
+    "date_created": "2026-01-30T14:18:51.432Z",
+    "date_updated": "2026-01-30T14:18:51.432Z",
+    "is_discountable": true,
+    "code": null,
+    "brand": null,
+    "product_options": []
+  }
+},
+{
+  "model": "catalogue.product",
+  "pk": 6,
+  "fields": {
+    "structure": "standalone",
+    "is_public": true,
+    "upc": "",
+    "parent": null,
+    "title": "La Roche-Posay - Toleriane Sensitive Rich Cream",
+    "slug": "la-roche-posay-toleriane-sensitive-rich-cream",
+    "description": "Soothing moisturizer for sensitive skin",
+    "meta_title": null,
+    "meta_description": null,
+    "priority": 0,
+    "product_class": 1,
+    "rating": null,
+    "date_created": "2026-01-30T14:18:51.453Z",
+    "date_updated": "2026-01-30T14:18:51.453Z",
+    "is_discountable": true,
+    "code": null,
+    "brand": null,
+    "product_options": []
+  }
+},
+{
+  "model": "catalogue.product",
+  "pk": 7,
+  "fields": {
+    "structure": "standalone",
+    "is_public": true,
+    "upc": "",
+    "parent": null,
+    "title": "Neutrogena - Hydro Boost Water Gel",
+    "slug": "neutrogena-hydro-boost-water-gel",
+    "description": "Oil-free gel-cream with hyaluronic acid",
+    "meta_title": null,
+    "meta_description": null,
+    "priority": 0,
+    "product_class": 1,
+    "rating": null,
+    "date_created": "2026-01-30T14:18:51.473Z",
+    "date_updated": "2026-01-30T21:51:16.757Z",
+    "is_discountable": true,
+    "code": null,
+    "brand": "",
+    "product_options": []
+  }
+},
+{
+  "model": "catalogue.product",
+  "pk": 8,
+  "fields": {
+    "structure": "standalone",
+    "is_public": true,
+    "upc": "",
+    "parent": null,
+    "title": "Natural Moisturizing Factors + HA",
+    "slug": "the-ordinary-natural-moisturizing-factors-ha",
+    "description": "Light moisturizer with amino acids and hyaluronic acid",
+    "meta_title": null,
+    "meta_description": null,
+    "priority": 0,
+    "product_class": 1,
+    "rating": null,
+    "date_created": "2026-01-30T14:18:51.495Z",
+    "date_updated": "2026-01-30T21:50:02.871Z",
+    "is_discountable": true,
+    "code": null,
+    "brand": "The Ordinary ",
+    "product_options": []
+  }
+},
+{
+  "model": "catalogue.product",
+  "pk": 9,
+  "fields": {
+    "structure": "standalone",
+    "is_public": true,
+    "upc": "",
+    "parent": null,
+    "title": "Anthelios Ultra-Light SPF 50+",
+    "slug": "la-roche-posay-anthelios-ultra-light-spf-50",
+    "description": "Very high protection sunscreen, lightweight texture",
+    "meta_title": null,
+    "meta_description": null,
+    "priority": 0,
+    "product_class": 1,
+    "rating": null,
+    "date_created": "2026-01-30T14:18:51.516Z",
+    "date_updated": "2026-01-30T21:49:44.538Z",
+    "is_discountable": true,
+    "code": null,
+    "brand": "La Roche-Posay",
+    "product_options": []
+  }
+},
+{
+  "model": "catalogue.product",
+  "pk": 10,
+  "fields": {
+    "structure": "standalone",
+    "is_public": true,
+    "upc": "",
+    "parent": null,
+    "title": "Oil Control Sun Gel-Cream SPF 50+",
+    "slug": "eucerin-oil-control-sun-gel-cream-spf-50",
+    "description": "Mattifying sun protection for oily skin",
+    "meta_title": null,
+    "meta_description": null,
+    "priority": 0,
+    "product_class": 1,
+    "rating": null,
+    "date_created": "2026-01-30T14:18:51.537Z",
+    "date_updated": "2026-01-30T21:49:30.215Z",
+    "is_discountable": true,
+    "code": null,
+    "brand": "Eucerin",
+    "product_options": []
+  }
+},
+{
+  "model": "catalogue.product",
+  "pk": 11,
+  "fields": {
+    "structure": "standalone",
+    "is_public": true,
+    "upc": "",
+    "parent": null,
+    "title": "Photoderm MAX SPF 50+",
+    "slug": "bioderma-photoderm-max-spf-50",
+    "description": "Maximum UVA/UVB protection",
+    "meta_title": null,
+    "meta_description": null,
+    "priority": 0,
+    "product_class": 1,
+    "rating": null,
+    "date_created": "2026-01-30T14:18:51.558Z",
+    "date_updated": "2026-01-30T21:49:21.592Z",
+    "is_discountable": true,
+    "code": null,
+    "brand": "Bioderma",
+    "product_options": []
+  }
+},
+{
+  "model": "catalogue.product",
+  "pk": 12,
+  "fields": {
+    "structure": "standalone",
+    "is_public": true,
+    "upc": "",
+    "parent": null,
+    "title": "Sun UV Face Shine Control SPF 50",
+    "slug": "nivea-sun-uv-face-shine-control-spf-50",
+    "description": "Mattifying sun protection with shine control",
+    "meta_title": null,
+    "meta_description": null,
+    "priority": 0,
+    "product_class": 1,
+    "rating": null,
+    "date_created": "2026-01-30T14:18:51.580Z",
+    "date_updated": "2026-01-30T21:48:16.718Z",
+    "is_discountable": true,
+    "code": null,
+    "brand": "Nivea",
+    "product_options": []
+  }
+},
+{
+  "model": "catalogue.product",
+  "pk": 13,
+  "fields": {
+    "structure": "standalone",
+    "is_public": true,
+    "upc": "",
+    "parent": null,
+    "title": "2% BHA Liquid Exfoliant",
+    "slug": "paulas-choice-2-bha-liquid-exfoliant",
+    "description": "Gentle exfoliant with salicylic acid",
+    "meta_title": null,
+    "meta_description": null,
+    "priority": 0,
+    "product_class": 1,
+    "rating": null,
+    "date_created": "2026-01-30T14:18:51.601Z",
+    "date_updated": "2026-01-30T21:47:59.341Z",
+    "is_discountable": true,
+    "code": null,
+    "brand": "Paula's Choice",
+    "product_options": []
+  }
+},
+{
+  "model": "catalogue.product",
+  "pk": 14,
+  "fields": {
+    "structure": "standalone",
+    "is_public": true,
+    "upc": "",
+    "parent": null,
+    "title": "The Ordinary - Glycolic Acid 7% Toning Solution",
+    "slug": "the-ordinary-glycolic-acid-7-toning-solution",
+    "description": "Exfoliating toner with glycolic acid",
+    "meta_title": null,
+    "meta_description": null,
+    "priority": 0,
+    "product_class": 1,
+    "rating": null,
+    "date_created": "2026-01-30T14:18:51.652Z",
+    "date_updated": "2026-01-30T21:45:55.202Z",
+    "is_discountable": true,
+    "code": null,
+    "brand": "The Ordinary",
+    "product_options": []
+  }
+},
+{
+  "model": "catalogue.product",
+  "pk": 15,
+  "fields": {
+    "structure": "standalone",
+    "is_public": true,
+    "upc": "",
+    "parent": null,
+    "title": "Glow Tonic",
+    "slug": "pixi-glow-tonic",
+    "description": "Exfoliating toner with glycolic acid and aloe",
+    "meta_title": null,
+    "meta_description": null,
+    "priority": 0,
+    "product_class": 1,
+    "rating": null,
+    "date_created": "2026-01-30T14:18:51.672Z",
+    "date_updated": "2026-01-30T21:45:33.663Z",
+    "is_discountable": true,
+    "code": null,
+    "brand": "Pixi",
+    "product_options": []
+  }
+},
+{
+  "model": "catalogue.productclass",
+  "pk": 1,
+  "fields": {
+    "name": "Skincare Product",
+    "slug": "skincare-product",
+    "requires_shipping": true,
+    "track_stock": true,
+    "options": []
+  }
+},
+{
+  "model": "catalogue.category",
+  "pk": 1,
+  "fields": {
+    "path": "0001",
+    "depth": 1,
+    "numchild": 0,
+    "name": "Cleanser",
+    "code": "",
+    "description": "",
+    "long_description": "",
+    "meta_title": null,
+    "meta_description": null,
+    "image": "",
+    "slug": "cleanser",
+    "exclude_from_menu": false,
+    "is_public": true,
+    "ancestors_are_public": true
+  }
+},
+{
+  "model": "catalogue.category",
+  "pk": 2,
+  "fields": {
+    "path": "0002",
+    "depth": 1,
+    "numchild": 0,
+    "name": "Moisturiser",
+    "code": "",
+    "description": "",
+    "long_description": "",
+    "meta_title": null,
+    "meta_description": null,
+    "image": "",
+    "slug": "moisturiser",
+    "exclude_from_menu": false,
+    "is_public": true,
+    "ancestors_are_public": true
+  }
+},
+{
+  "model": "catalogue.category",
+  "pk": 3,
+  "fields": {
+    "path": "0003",
+    "depth": 1,
+    "numchild": 0,
+    "name": "Sunscreen",
+    "code": "",
+    "description": "",
+    "long_description": "",
+    "meta_title": null,
+    "meta_description": null,
+    "image": "",
+    "slug": "sunscreen",
+    "exclude_from_menu": false,
+    "is_public": true,
+    "ancestors_are_public": true
+  }
+},
+{
+  "model": "catalogue.category",
+  "pk": 4,
+  "fields": {
+    "path": "0004",
+    "depth": 1,
+    "numchild": 0,
+    "name": "Toner",
+    "code": "",
+    "description": "",
+    "long_description": "",
+    "meta_title": null,
+    "meta_description": null,
+    "image": "",
+    "slug": "toner",
+    "exclude_from_menu": false,
+    "is_public": true,
+    "ancestors_are_public": true
+  }
+},
+{
+  "model": "catalogue.productcategory",
+  "pk": 1,
+  "fields": {
+    "product": 1,
+    "category": 1
+  }
+},
+{
+  "model": "catalogue.productcategory",
+  "pk": 2,
+  "fields": {
+    "product": 2,
+    "category": 1
+  }
+},
+{
+  "model": "catalogue.productcategory",
+  "pk": 3,
+  "fields": {
+    "product": 3,
+    "category": 1
+  }
+},
+{
+  "model": "catalogue.productcategory",
+  "pk": 4,
+  "fields": {
+    "product": 4,
+    "category": 1
+  }
+},
+{
+  "model": "catalogue.productcategory",
+  "pk": 5,
+  "fields": {
+    "product": 5,
+    "category": 2
+  }
+},
+{
+  "model": "catalogue.productcategory",
+  "pk": 6,
+  "fields": {
+    "product": 6,
+    "category": 2
+  }
+},
+{
+  "model": "catalogue.productcategory",
+  "pk": 34,
+  "fields": {
+    "product": 15,
+    "category": 4
+  }
+},
+{
+  "model": "catalogue.productcategory",
+  "pk": 35,
+  "fields": {
+    "product": 14,
+    "category": 4
+  }
+},
+{
+  "model": "catalogue.productcategory",
+  "pk": 36,
+  "fields": {
+    "product": 13,
+    "category": 4
+  }
+},
+{
+  "model": "catalogue.productcategory",
+  "pk": 37,
+  "fields": {
+    "product": 12,
+    "category": 3
+  }
+},
+{
+  "model": "catalogue.productcategory",
+  "pk": 38,
+  "fields": {
+    "product": 11,
+    "category": 3
+  }
+},
+{
+  "model": "catalogue.productcategory",
+  "pk": 39,
+  "fields": {
+    "product": 10,
+    "category": 3
+  }
+},
+{
+  "model": "catalogue.productcategory",
+  "pk": 40,
+  "fields": {
+    "product": 9,
+    "category": 3
+  }
+},
+{
+  "model": "catalogue.productcategory",
+  "pk": 41,
+  "fields": {
+    "product": 8,
+    "category": 2
+  }
+},
+{
+  "model": "catalogue.productcategory",
+  "pk": 43,
+  "fields": {
+    "product": 7,
+    "category": 2
+  }
+},
+{
+  "model": "catalogue.productimage",
+  "pk": 4,
+  "fields": {
+    "product": 15,
+    "code": "",
+    "original": "images/products/2026/01/Pixi_Glow_Tonic.jpg",
+    "caption": "",
+    "display_order": 0,
+    "date_created": "2026-01-30T21:45:33.690Z"
+  }
+},
+{
+  "model": "catalogue.productimage",
+  "pk": 5,
+  "fields": {
+    "product": 14,
+    "code": "",
+    "original": "images/products/2026/01/The_Ordinary_Glycolic_Acid_7_Toner.jpg",
+    "caption": "",
+    "display_order": 0,
+    "date_created": "2026-01-30T21:45:55.213Z"
+  }
+},
+{
+  "model": "catalogue.productimage",
+  "pk": 6,
+  "fields": {
+    "product": 13,
+    "code": "",
+    "original": "images/products/2026/01/Paulas_Choice_Skin_Perfecting_2_BHA.jpg",
+    "caption": "",
+    "display_order": 0,
+    "date_created": "2026-01-30T21:47:59.350Z"
+  }
+},
+{
+  "model": "catalogue.productimage",
+  "pk": 7,
+  "fields": {
+    "product": 12,
+    "code": "",
+    "original": "images/products/2026/01/Nivea_Sun_UV_Face_SPF_50.jpg",
+    "caption": "",
+    "display_order": 0,
+    "date_created": "2026-01-30T21:48:16.728Z"
+  }
+},
+{
+  "model": "catalogue.productimage",
+  "pk": 8,
+  "fields": {
+    "product": 11,
+    "code": "",
+    "original": "images/products/2026/01/Bioderma_Photoderm_SPF_50.jpg",
+    "caption": "",
+    "display_order": 0,
+    "date_created": "2026-01-30T21:49:21.600Z"
+  }
+},
+{
+  "model": "catalogue.productimage",
+  "pk": 9,
+  "fields": {
+    "product": 10,
+    "code": "",
+    "original": "images/products/2026/01/Eucerin_Oil_Control_SPF_50.jpg",
+    "caption": "",
+    "display_order": 0,
+    "date_created": "2026-01-30T21:49:30.224Z"
+  }
+},
+{
+  "model": "catalogue.productimage",
+  "pk": 10,
+  "fields": {
+    "product": 9,
+    "code": "",
+    "original": "images/products/2026/01/La_Roche-Posay_Anthelios_SPF_50.jpg",
+    "caption": "",
+    "display_order": 0,
+    "date_created": "2026-01-30T21:49:44.550Z"
+  }
+},
+{
+  "model": "catalogue.productimage",
+  "pk": 11,
+  "fields": {
+    "product": 8,
+    "code": "",
+    "original": "images/products/2026/01/The_Ordinary_Natural_Moisturizing_Factors__HA.jpg",
+    "caption": "",
+    "display_order": 0,
+    "date_created": "2026-01-30T21:50:02.881Z"
+  }
+},
+{
+  "model": "partner.partner",
+  "pk": 1,
+  "fields": {
+    "code": "skintech",
+    "name": "SkinTech",
+    "users": []
+  }
+},
+{
+  "model": "partner.stockrecord",
+  "pk": 1,
+  "fields": {
+    "product": 1,
+    "partner": 1,
+    "partner_sku": "SKIN-0001",
+    "price_currency": "GBP",
+    "price": "12.99",
+    "num_in_stock": 150,
+    "num_allocated": null,
+    "low_stock_threshold": null,
+    "date_created": "2026-01-30T14:18:51.360Z",
+    "date_updated": "2026-01-30T14:18:51.360Z"
+  }
+},
+{
+  "model": "partner.stockrecord",
+  "pk": 2,
+  "fields": {
+    "product": 2,
+    "partner": 1,
+    "partner_sku": "SKIN-0002",
+    "price_currency": "GBP",
+    "price": "18.50",
+    "num_in_stock": 120,
+    "num_allocated": null,
+    "low_stock_threshold": null,
+    "date_created": "2026-01-30T14:18:51.382Z",
+    "date_updated": "2026-01-30T14:18:51.382Z"
+  }
+},
+{
+  "model": "partner.stockrecord",
+  "pk": 3,
+  "fields": {
+    "product": 3,
+    "partner": 1,
+    "partner_sku": "SKIN-0003",
+    "price_currency": "GBP",
+    "price": "8.90",
+    "num_in_stock": 200,
+    "num_allocated": null,
+    "low_stock_threshold": null,
+    "date_created": "2026-01-30T14:18:51.403Z",
+    "date_updated": "2026-01-30T14:18:51.403Z"
+  }
+},
+{
+  "model": "partner.stockrecord",
+  "pk": 4,
+  "fields": {
+    "product": 4,
+    "partner": 1,
+    "partner_sku": "SKIN-0004",
+    "price_currency": "GBP",
+    "price": "10.99",
+    "num_in_stock": 180,
+    "num_allocated": null,
+    "low_stock_threshold": null,
+    "date_created": "2026-01-30T14:18:51.424Z",
+    "date_updated": "2026-01-30T14:18:51.424Z"
+  }
+},
+{
+  "model": "partner.stockrecord",
+  "pk": 5,
+  "fields": {
+    "product": 5,
+    "partner": 1,
+    "partner_sku": "SKIN-0005",
+    "price_currency": "GBP",
+    "price": "15.99",
+    "num_in_stock": 140,
+    "num_allocated": null,
+    "low_stock_threshold": null,
+    "date_created": "2026-01-30T14:18:51.444Z",
+    "date_updated": "2026-01-30T14:18:51.444Z"
+  }
+},
+{
+  "model": "partner.stockrecord",
+  "pk": 6,
+  "fields": {
+    "product": 6,
+    "partner": 1,
+    "partner_sku": "SKIN-0006",
+    "price_currency": "GBP",
+    "price": "22.00",
+    "num_in_stock": 100,
+    "num_allocated": null,
+    "low_stock_threshold": null,
+    "date_created": "2026-01-30T14:18:51.466Z",
+    "date_updated": "2026-01-30T14:18:51.466Z"
+  }
+},
+{
+  "model": "partner.stockrecord",
+  "pk": 7,
+  "fields": {
+    "product": 7,
+    "partner": 1,
+    "partner_sku": "SKIN-0007",
+    "price_currency": "GBP",
+    "price": "16.50",
+    "num_in_stock": 160,
+    "num_allocated": null,
+    "low_stock_threshold": null,
+    "date_created": "2026-01-30T14:18:51.487Z",
+    "date_updated": "2026-01-30T21:51:16.761Z"
+  }
+},
+{
+  "model": "partner.stockrecord",
+  "pk": 8,
+  "fields": {
+    "product": 8,
+    "partner": 1,
+    "partner_sku": "SKIN-0008",
+    "price_currency": "GBP",
+    "price": "7.50",
+    "num_in_stock": 220,
+    "num_allocated": null,
+    "low_stock_threshold": null,
+    "date_created": "2026-01-30T14:18:51.508Z",
+    "date_updated": "2026-01-30T21:50:02.874Z"
+  }
+},
+{
+  "model": "partner.stockrecord",
+  "pk": 9,
+  "fields": {
+    "product": 9,
+    "partner": 1,
+    "partner_sku": "SKIN-0009",
+    "price_currency": "GBP",
+    "price": "24.99",
+    "num_in_stock": 110,
+    "num_allocated": null,
+    "low_stock_threshold": null,
+    "date_created": "2026-01-30T14:18:51.529Z",
+    "date_updated": "2026-01-30T21:49:44.541Z"
+  }
+},
+{
+  "model": "partner.stockrecord",
+  "pk": 10,
+  "fields": {
+    "product": 10,
+    "partner": 1,
+    "partner_sku": "SKIN-0010",
+    "price_currency": "GBP",
+    "price": "19.90",
+    "num_in_stock": 95,
+    "num_allocated": null,
+    "low_stock_threshold": null,
+    "date_created": "2026-01-30T14:18:51.551Z",
+    "date_updated": "2026-01-30T21:49:30.218Z"
+  }
+},
+{
+  "model": "partner.stockrecord",
+  "pk": 11,
+  "fields": {
+    "product": 11,
+    "partner": 1,
+    "partner_sku": "SKIN-0011",
+    "price_currency": "GBP",
+    "price": "21.50",
+    "num_in_stock": 105,
+    "num_allocated": null,
+    "low_stock_threshold": null,
+    "date_created": "2026-01-30T14:18:51.571Z",
+    "date_updated": "2026-01-30T21:49:21.594Z"
+  }
+},
+{
+  "model": "partner.stockrecord",
+  "pk": 12,
+  "fields": {
+    "product": 12,
+    "partner": 1,
+    "partner_sku": "SKIN-0012",
+    "price_currency": "GBP",
+    "price": "14.99",
+    "num_in_stock": 130,
+    "num_allocated": null,
+    "low_stock_threshold": null,
+    "date_created": "2026-01-30T14:18:51.593Z",
+    "date_updated": "2026-01-30T21:48:16.721Z"
+  }
+},
+{
+  "model": "partner.stockrecord",
+  "pk": 13,
+  "fields": {
+    "product": 13,
+    "partner": 1,
+    "partner_sku": "SKIN-0013",
+    "price_currency": "GBP",
+    "price": "32.00",
+    "num_in_stock": 85,
+    "num_allocated": null,
+    "low_stock_threshold": null,
+    "date_created": "2026-01-30T14:18:51.614Z",
+    "date_updated": "2026-01-30T21:47:59.344Z"
+  }
+},
+{
+  "model": "partner.stockrecord",
+  "pk": 14,
+  "fields": {
+    "product": 14,
+    "partner": 1,
+    "partner_sku": "SKIN-0014",
+    "price_currency": "GBP",
+    "price": "8.70",
+    "num_in_stock": 190,
+    "num_allocated": null,
+    "low_stock_threshold": null,
+    "date_created": "2026-01-30T14:18:51.665Z",
+    "date_updated": "2026-01-30T21:45:55.205Z"
+  }
+},
+{
+  "model": "partner.stockrecord",
+  "pk": 15,
+  "fields": {
+    "product": 15,
+    "partner": 1,
+    "partner_sku": "SKIN-0015",
+    "price_currency": "GBP",
+    "price": "18.00",
+    "num_in_stock": 125,
+    "num_allocated": null,
+    "low_stock_threshold": null,
+    "date_created": "2026-01-30T14:18:51.686Z",
+    "date_updated": "2026-01-30T21:45:33.678Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 1,
+  "fields": {
+    "name": "Water",
+    "inci_name": "Aqua",
+    "function": "Solvent",
+    "description": "Essential for hydration and dissolving other ingredients.",
+    "safety_rating": 1,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "oily": "beneficial",
+      "dry": "beneficial",
+      "sensitive": "beneficial"
+    },
+    "created_at": "2026-01-31T01:07:31.473Z",
+    "updated_at": "2026-01-31T01:07:31.473Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 2,
+  "fields": {
+    "name": "Glycerin",
+    "inci_name": "Glycerin",
+    "function": "Humectant",
+    "description": "Attracts moisture to the skin.",
+    "safety_rating": 1,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "oily": "beneficial",
+      "dry": "beneficial"
+    },
+    "created_at": "2026-01-31T01:07:31.490Z",
+    "updated_at": "2026-01-31T01:07:31.490Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 3,
+  "fields": {
+    "name": "Niacinamide",
+    "inci_name": "Niacinamide",
+    "function": "Active",
+    "description": "Vitamin B3, brightens skin and controls oil.",
+    "safety_rating": 1,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "oily": "beneficial",
+      "sensitive": "beneficial"
+    },
+    "created_at": "2026-01-31T01:07:31.496Z",
+    "updated_at": "2026-01-31T01:07:31.496Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 4,
+  "fields": {
+    "name": "Alcohol Denat.",
+    "inci_name": "Alcohol Denat.",
+    "function": "Solvent, Astringent",
+    "description": "Can be drying and irritating to sensitive skin.",
+    "safety_rating": 5,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": true,
+    "pregnancy_safe": true,
+    "effects": {
+      "oily": "neutral",
+      "dry": "avoid",
+      "sensitive": "avoid"
+    },
+    "created_at": "2026-01-31T01:07:31.503Z",
+    "updated_at": "2026-01-31T01:07:31.503Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 5,
+  "fields": {
+    "name": "Fragrance",
+    "inci_name": "Parfum",
+    "function": "Scent",
+    "description": "Synthetic or natural scent, common cause of allergic reactions.",
+    "safety_rating": 8,
+    "comedogenic_rating": 0,
+    "is_allergen": true,
+    "is_irritant": true,
+    "pregnancy_safe": true,
+    "effects": {
+      "sensitive": "avoid"
+    },
+    "created_at": "2026-01-31T01:07:31.510Z",
+    "updated_at": "2026-01-31T01:07:31.510Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 6,
+  "fields": {
+    "name": "Retinol",
+    "inci_name": "Retinol",
+    "function": "Active",
+    "description": "Vitamin A derivative, anti-aging. Not pregnancy safe.",
+    "safety_rating": 4,
+    "comedogenic_rating": 1,
+    "is_allergen": false,
+    "is_irritant": true,
+    "pregnancy_safe": false,
+    "effects": {
+      "dry": "caution",
+      "sensitive": "caution"
+    },
+    "created_at": "2026-01-31T01:07:31.517Z",
+    "updated_at": "2026-01-31T01:07:31.517Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 7,
+  "fields": {
+    "name": "Salicylic Acid",
+    "inci_name": "Salicylic Acid",
+    "function": "Exfoliant",
+    "description": "BHA, exfoliates inside pores. Great for acne.",
+    "safety_rating": 3,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": true,
+    "pregnancy_safe": true,
+    "effects": {
+      "oily": "beneficial",
+      "acne": "beneficial",
+      "sensitive": "caution"
+    },
+    "created_at": "2026-01-31T01:07:31.523Z",
+    "updated_at": "2026-01-31T01:07:31.523Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 8,
+  "fields": {
+    "name": "Hyaluronic Acid",
+    "inci_name": "Sodium Hyaluronate",
+    "function": "Humectant",
+    "description": "Holds 1000x its weight in water, hydrates skin.",
+    "safety_rating": 1,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "dry": "beneficial",
+      "oily": "beneficial"
+    },
+    "created_at": "2026-01-31T01:07:31.530Z",
+    "updated_at": "2026-01-31T01:07:31.530Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 9,
+  "fields": {
+    "name": "Phenoxyethanol",
+    "inci_name": "Phenoxyethanol",
+    "function": "Preservative",
+    "description": "Safe synthetic preservative.",
+    "safety_rating": 3,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": true,
+    "pregnancy_safe": true,
+    "effects": {},
+    "created_at": "2026-01-31T01:07:31.536Z",
+    "updated_at": "2026-01-31T01:07:31.537Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 10,
+  "fields": {
+    "name": "Parabens",
+    "inci_name": "Methylparaben",
+    "function": "Preservative",
+    "description": "Controversial preservative, often avoided.",
+    "safety_rating": 7,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "sensitive": "caution"
+    },
+    "created_at": "2026-01-31T01:07:31.543Z",
+    "updated_at": "2026-01-31T01:07:31.543Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 11,
+  "fields": {
+    "name": "Cetyl Alcohol",
+    "inci_name": "Cetyl Alcohol",
+    "function": "Emollient, Thickener",
+    "description": "Fatty alcohol used to stabilize formulations and soften skin. Non-irritating.",
+    "safety_rating": 1,
+    "comedogenic_rating": 2,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "dry": "beneficial"
+    },
+    "created_at": "2026-01-31T01:42:18.994Z",
+    "updated_at": "2026-01-31T01:42:18.994Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 12,
+  "fields": {
+    "name": "Propylene Glycol",
+    "inci_name": "Propylene Glycol",
+    "function": "Humectant, Solvent",
+    "description": "Helps ingredients penetrate skin. Can be irritating to very sensitive skin.",
+    "safety_rating": 3,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": true,
+    "pregnancy_safe": true,
+    "effects": {
+      "sensitive": "caution"
+    },
+    "created_at": "2026-01-31T01:42:19.012Z",
+    "updated_at": "2026-01-31T01:42:19.012Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 13,
+  "fields": {
+    "name": "Sodium Lauryl Sulfate",
+    "inci_name": "Sodium Lauryl Sulfate",
+    "function": "Surfactant",
+    "description": "Strong cleanser (SLS). Can be drying and strip natural oils. Often avoided in gentle skincare.",
+    "safety_rating": 5,
+    "comedogenic_rating": 3,
+    "is_allergen": false,
+    "is_irritant": true,
+    "pregnancy_safe": true,
+    "effects": {
+      "dry": "avoid",
+      "sensitive": "avoid"
+    },
+    "created_at": "2026-01-31T01:42:19.019Z",
+    "updated_at": "2026-01-31T01:42:19.019Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 14,
+  "fields": {
+    "name": "Stearyl Alcohol",
+    "inci_name": "Stearyl Alcohol",
+    "function": "Emollient",
+    "description": "Fatty alcohol, smooths skin and thickens products.",
+    "safety_rating": 1,
+    "comedogenic_rating": 2,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {},
+    "created_at": "2026-01-31T01:42:19.025Z",
+    "updated_at": "2026-01-31T01:42:19.025Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 15,
+  "fields": {
+    "name": "Propylparaben",
+    "inci_name": "Propylparaben",
+    "function": "Preservative",
+    "description": "Paraben preservative. Prevents mold and bacteria.",
+    "safety_rating": 7,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "sensitive": "caution"
+    },
+    "created_at": "2026-01-31T01:42:19.032Z",
+    "updated_at": "2026-01-31T01:42:19.032Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 16,
+  "fields": {
+    "name": "Butylparaben",
+    "inci_name": "Butylparaben",
+    "function": "Preservative",
+    "description": "Paraben preservative.",
+    "safety_rating": 7,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "sensitive": "caution"
+    },
+    "created_at": "2026-01-31T01:42:19.039Z",
+    "updated_at": "2026-01-31T01:42:19.039Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 17,
+  "fields": {
+    "name": "Cocamidopropyl Betaine",
+    "inci_name": "Cocamidopropyl Betaine",
+    "function": "Surfactant",
+    "description": "Mild surfactant derived from coconut oil. Generally safe but can cause allergies.",
+    "safety_rating": 3,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": true,
+    "pregnancy_safe": true,
+    "effects": {
+      "sensitive": "caution"
+    },
+    "created_at": "2026-01-31T02:24:14.119Z",
+    "updated_at": "2026-01-31T02:24:14.119Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 18,
+  "fields": {
+    "name": "Coco-Glucoside",
+    "inci_name": "Coco-Glucoside",
+    "function": "Surfactant",
+    "description": "Very gentle cleanser derived from fruit sugar and coconut oil.",
+    "safety_rating": 1,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "sensitive": "beneficial",
+      "dry": "beneficial"
+    },
+    "created_at": "2026-01-31T02:24:14.136Z",
+    "updated_at": "2026-01-31T02:24:14.136Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 19,
+  "fields": {
+    "name": "Mandelic Acid",
+    "inci_name": "Mandelic Acid",
+    "function": "Exfoliant",
+    "description": "AHA derived from bitter almonds. Gentler than glycolic acid.",
+    "safety_rating": 2,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "acne": "beneficial",
+      "sensitive": "beneficial"
+    },
+    "created_at": "2026-01-31T02:24:14.143Z",
+    "updated_at": "2026-01-31T02:24:14.143Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 20,
+  "fields": {
+    "name": "Glycolic Acid",
+    "inci_name": "Glycolic Acid",
+    "function": "Exfoliant",
+    "description": "AHA that exfoliates skin. Can be irritating.",
+    "safety_rating": 4,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": true,
+    "pregnancy_safe": true,
+    "effects": {
+      "sensitive": "caution",
+      "dry": "caution"
+    },
+    "created_at": "2026-01-31T02:24:14.149Z",
+    "updated_at": "2026-01-31T02:24:14.149Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 21,
+  "fields": {
+    "name": "Strawberry Extract",
+    "inci_name": "Fragaria Ananassa Fruit Extract",
+    "function": "Antioxidant",
+    "description": "Natural extract rich in Vitamin C.",
+    "safety_rating": 1,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "oily": "beneficial"
+    },
+    "created_at": "2026-01-31T02:24:14.156Z",
+    "updated_at": "2026-01-31T02:24:14.156Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 22,
+  "fields": {
+    "name": "Blackberry Extract",
+    "inci_name": "Rubus Fruticosus Fruit Extract",
+    "function": "Antioxidant",
+    "description": "Rich in antioxidants and vitamins.",
+    "safety_rating": 1,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "oily": "beneficial"
+    },
+    "created_at": "2026-01-31T02:24:14.163Z",
+    "updated_at": "2026-01-31T02:24:14.163Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 23,
+  "fields": {
+    "name": "Raspberry Extract",
+    "inci_name": "Rubus Idaeus Fruit Extract",
+    "function": "Antioxidant",
+    "description": "Soothing and antioxidant properties.",
+    "safety_rating": 1,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "sensitive": "beneficial"
+    },
+    "created_at": "2026-01-31T02:24:14.169Z",
+    "updated_at": "2026-01-31T02:24:14.169Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 24,
+  "fields": {
+    "name": "Coconut Acid",
+    "inci_name": "Coconut Acid",
+    "function": "Emollient, Surfactant",
+    "description": "Fatty acids from coconut oil.",
+    "safety_rating": 1,
+    "comedogenic_rating": 4,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "acne": "avoid"
+    },
+    "created_at": "2026-01-31T02:24:14.174Z",
+    "updated_at": "2026-01-31T02:24:14.174Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 25,
+  "fields": {
+    "name": "Sodium Chloride",
+    "inci_name": "Sodium Chloride",
+    "function": "Thickener",
+    "description": "Table salt. Used to thicken products.",
+    "safety_rating": 1,
+    "comedogenic_rating": 5,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "acne": "avoid"
+    },
+    "created_at": "2026-01-31T02:24:14.181Z",
+    "updated_at": "2026-01-31T02:24:14.181Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 26,
+  "fields": {
+    "name": "Menthyl Lactate",
+    "inci_name": "Menthyl Lactate",
+    "function": "Cooling Agent",
+    "description": "Provides a cooling sensation. Milder than menthol.",
+    "safety_rating": 2,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "sensitive": "caution"
+    },
+    "created_at": "2026-01-31T02:24:14.187Z",
+    "updated_at": "2026-01-31T02:24:14.187Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 27,
+  "fields": {
+    "name": "Calcium Gluconate",
+    "inci_name": "Calcium Gluconate",
+    "function": "Humectant",
+    "description": "Skin conditioning agent.",
+    "safety_rating": 1,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {},
+    "created_at": "2026-01-31T02:24:14.194Z",
+    "updated_at": "2026-01-31T02:24:14.194Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 28,
+  "fields": {
+    "name": "Gluconolactone",
+    "inci_name": "Gluconolactone",
+    "function": "Exfoliant, Humectant",
+    "description": "PHA, very gentle exfoliant suitable for sensitive skin.",
+    "safety_rating": 1,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "sensitive": "beneficial"
+    },
+    "created_at": "2026-01-31T02:24:14.199Z",
+    "updated_at": "2026-01-31T02:24:14.199Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 29,
+  "fields": {
+    "name": "Sodium Benzoate",
+    "inci_name": "Sodium Benzoate",
+    "function": "Preservative",
+    "description": "Common food-grade preservative.",
+    "safety_rating": 2,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "sensitive": "caution"
+    },
+    "created_at": "2026-01-31T02:24:14.206Z",
+    "updated_at": "2026-01-31T02:24:14.206Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 30,
+  "fields": {
+    "name": "Potassium Sorbate",
+    "inci_name": "Potassium Sorbate",
+    "function": "Preservative",
+    "description": "Mild preservative.",
+    "safety_rating": 2,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {},
+    "created_at": "2026-01-31T02:24:14.213Z",
+    "updated_at": "2026-01-31T02:24:14.213Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 31,
+  "fields": {
+    "name": "Limonene",
+    "inci_name": "Limonene",
+    "function": "Fragrance Component",
+    "description": "Citrus scent component. Common allergen.",
+    "safety_rating": 6,
+    "comedogenic_rating": 0,
+    "is_allergen": true,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "sensitive": "avoid"
+    },
+    "created_at": "2026-01-31T02:24:14.219Z",
+    "updated_at": "2026-01-31T02:24:14.219Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 32,
+  "fields": {
+    "name": "Betaine",
+    "inci_name": "Betaine",
+    "function": "Humectant, Anti-irritant",
+    "description": "Hydrates skin and reduces irritation.",
+    "safety_rating": 1,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": false,
+    "pregnancy_safe": true,
+    "effects": {
+      "sensitive": "beneficial",
+      "dry": "beneficial"
+    },
+    "created_at": "2026-01-31T02:24:14.224Z",
+    "updated_at": "2026-01-31T02:24:14.224Z"
+  }
+},
+{
+  "model": "scanner.ingredient",
+  "pk": 33,
+  "fields": {
+    "name": "Sodium Carbonate",
+    "inci_name": "Sodium Carbonate",
+    "function": "pH Adjuster",
+    "description": "Soda ash. Used to adjust pH. Can be drying in high concentrations.",
+    "safety_rating": 2,
+    "comedogenic_rating": 0,
+    "is_allergen": false,
+    "is_irritant": true,
+    "pregnancy_safe": true,
+    "effects": {
+      "dry": "caution"
+    },
+    "created_at": "2026-01-31T02:46:46.538Z",
+    "updated_at": "2026-01-31T02:46:46.538Z"
+  }
+}
+]
