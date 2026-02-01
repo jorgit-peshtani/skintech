@@ -134,7 +134,13 @@ const Products = () => {
                                 <div key={product.id} className="product-card">
                                     <div className="product-image">
                                         <img
-                                            src={product.image || 'https://via.placeholder.com/300x300?text=SkinTech'}
+                                            src={
+                                                product.image
+                                                    ? (product.image.startsWith('http')
+                                                        ? product.image
+                                                        : `https://skintech.onrender.com${product.image.startsWith('/') ? '' : '/'}${product.image}`)
+                                                    : 'https://via.placeholder.com/300x300?text=SkinTech'
+                                            }
                                             alt={product.name}
                                             onError={(e) => {
                                                 e.target.src = 'https://via.placeholder.com/300x300?text=SkinTech';
