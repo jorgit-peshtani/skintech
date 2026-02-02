@@ -4,13 +4,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from accounts.simple_views import simple_stats, simple_users, simple_login, simple_orders, simple_products
-from accounts.web_views import WebProductViewSet
+from accounts.web_views import WebProductViewSet, WebOrderViewSet
 from accounts.auth_views import CustomTokenObtainPairView, RegisterView, UserView
 from rest_framework_simplejwt.views import TokenRefreshView
 
 # Router for web API
 router = DefaultRouter()
 router.register(r'products', WebProductViewSet, basename='web-product')
+router.register(r'orders', WebOrderViewSet, basename='web-order')
 
 urlpatterns = [
     # Django admin

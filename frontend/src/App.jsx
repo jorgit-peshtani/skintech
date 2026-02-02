@@ -15,6 +15,7 @@ import Scanner from './pages/Scanner';
 import Profile from './pages/Profile';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import OrderSuccess from './pages/OrderSuccess';
 import Orders from './pages/Orders';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -78,6 +79,14 @@ function App() {
                             element={
                                 <ProtectedRoute>
                                     <Checkout />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/order-success"
+                            element={
+                                <ProtectedRoute>
+                                    <OrderSuccess />
                                 </ProtectedRoute>
                             }
                         />

@@ -54,3 +54,38 @@ class WebProductSerializer(serializers.ModelSerializer):
     def get_brand(self, obj):
         """Get brand from database"""
         return obj.brand or "SkinTech"
+
+
+class OrderLineSerializer(serializers.Serializer):
+    """Serializer for order items in create request"""
+    product_id = serializers.IntegerField()
+    quantity = serializers.IntegerField()
+    price = serializers.DecimalField(max_digits=12, decimal_places=2)
+
+
+class CreateOrderSerializer(serializers.Serializer):
+    """Serializer for creating an order"""
+    items = OrderLineSerializer(many=True)
+    total = serializers.DecimalField(max_digits=12, decimal_places=2)
+    
+    # Shipping info
+    full_name = serializers.CharField(max_length=255)
+    email = serializers.EmailField()
+    phone = serializers.CharField(max_length=50)
+    address = serializers.CharField(max_length=500)
+    city = serializers.CharField(max_length=100)
+    zip_code = serializers.CharField(max_length=20)
+    country = serializers.CharField(max_length=100, default='Albania')
+
+
+class WebOrderSerializer(serializers.ModelSerializer):
+    """Serializer for listing user orders"""
+    status = serializers.CharField(source='status')
+    total = serializers.DecimalField(source='total_incl_tax', max_digits=12, decimal_places=2)
+    number = serializers.CharField()
+    date = serializers.DateTimeField(source='date_placed')
+    
+    class Meta:
+        model = get_model('order', 'Order')
+        fields = ['id', 'number', 'status', 'total', 'date']
+

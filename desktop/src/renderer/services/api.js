@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Django Simple Backend URL (bypasses Oscar middleware)
 // Desktop app now uses simple Django endpoints
-const API_URL = 'http://localhost:8000/simple';
+const API_URL = 'https://skintech.onrender.com/simple';
 
 // Create axios instance
 const api = axios.create({

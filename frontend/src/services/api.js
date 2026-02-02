@@ -99,14 +99,7 @@ export const recommendationsAPI = {
     getPopular: (params) => api.get('/recommendations/popular', { params }),
 };
 
-// Orders API
-export const ordersAPI = {
-    createOrder: (data) => api.post('/orders', data),
-    getOrders: (params) => api.get('/orders', { params }),
-    getOrder: (id) => api.get(`/orders/${id}`),
-    processPayment: (id, data) => api.post(`/orders/${id}/payment`, data),
-    cancelOrder: (id) => api.post(`/orders/${id}/cancel`),
-};
+
 
 // Users API
 export const usersAPI = {
@@ -114,6 +107,11 @@ export const usersAPI = {
     updateProfile: (data) => api.put('/users/profile', data),
     updatePreferences: (data) => api.put('/users/preferences', data),
     getStats: () => api.get('/users/stats'),
+};
+
+export const ordersAPI = {
+    createOrder: (orderData) => api.post('/api/web/orders/', orderData),
+    getMyOrders: () => api.get('/api/web/orders/'),
 };
 
 export default api;

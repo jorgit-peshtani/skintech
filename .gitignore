@@ -44,6 +44,9 @@ yarn-error.log*
 dist/
 dist-ssr/
 *.local
+desktop/dist-electron/
+desktop/dist/
+desktop/release/
 
 # Logs
 logs/
