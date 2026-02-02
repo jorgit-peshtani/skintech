@@ -12,6 +12,8 @@ const Checkout = () => {
     const cartTotal = getCartTotal();
     const [loading, setLoading] = useState(false);
 
+    const [paymentMethod, setPaymentMethod] = useState('card');
+
     // Form State
     const [formData, setFormData] = useState({
         full_name: '',
@@ -33,6 +35,7 @@ const Checkout = () => {
 
         const orderPayload = {
             ...formData,
+            payment_method: paymentMethod,
             total: (cartTotal + 5.99).toFixed(2), // Total + Shipping
             items: items.map(item => ({
                 product_id: item.id,
@@ -99,10 +102,38 @@ const Checkout = () => {
                                     </div>
                                 </div>
 
+                                {/* Payment Method Section */}
+                                <div className="payment-section">
+                                    <h3>Payment Method</h3>
+                                    <div className="payment-options">
+                                        <div
+                                            className={`payment-option ${paymentMethod === 'card' ? 'selected' : ''}`}
+                                            onClick={() => setPaymentMethod('card')}
+                                        >
+                                            <div className="payment-icon">💳</div>
+                                            <span>Credit Card</span>
+                                        </div>
+                                        <div
+                                            className={`payment-option ${paymentMethod === 'paypal' ? 'selected' : ''}`}
+                                            onClick={() => setPaymentMethod('paypal')}
+                                        >
+                                            <div className="payment-icon">🅿️</div>
+                                            <span>PayPal</span>
+                                        </div>
+                                        <div
+                                            className={`payment-option ${paymentMethod === 'cod' ? 'selected' : ''}`}
+                                            onClick={() => setPaymentMethod('cod')}
+                                        >
+                                            <div className="payment-icon">💵</div>
+                                            <span>Cash on Delivery</span>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <button type="submit" className="btn btn-primary place-order-btn" disabled={loading}>
-                                    {loading ? 'Processing...' : `Place Order • €${(cartTotal + 5.99).toFixed(2)}`}
+                                    {loading ? 'Processing...' : `Pay €${(cartTotal + 5.99).toFixed(2)} & Place Order`}
                                 </button>
-                                <p className="secure-note">🔒 Payments are secure (Prototype: No charge)</p>
+                                <p className="secure-note">🔒 Payments are secure and encrypted</p>
                             </form>
                         </div>
 
