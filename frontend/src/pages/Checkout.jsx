@@ -56,9 +56,10 @@ const Checkout = () => {
 
     return (
         <div className="checkout-page">
-            <Navbar />
             <div className="container checkout-container">
                 <h1>Checkout</h1>
+                {/* Debug Info - Remove before production */}
+                {/* <p style={{ fontSize: '10px', color: '#888' }}>Items in cart: {items?.length || 0}</p> */}
 
                 {items && items.length > 0 ? (
                     <div className="checkout-grid">
