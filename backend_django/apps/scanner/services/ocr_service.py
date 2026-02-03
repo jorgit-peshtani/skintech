@@ -1,6 +1,7 @@
 """
 OCR Service - Powered by OCR.space API
 Replaces local Tesseract/EasyOCR to save server memory.
+Restored original ingredient parsing logic ("Smart Face Secure" features).
 """
 
 import logging
@@ -85,6 +86,7 @@ class OCRService:
     def extract_ingredient_list(self, text: str) -> List[str]:
         """
         Parse raw text into a clean list of ingredients.
+        Restored logic from original implementation.
         """
         if not text:
             return []
@@ -93,43 +95,65 @@ class OCRService:
         text = text.replace('\r\n', '\n').replace('\r', '\n')
         
         # 2. Try to detect if it's a comma-separated list vs newline-separated
-        # Heuristic: If many commas, split by comma. If few, split by newline.
         comma_count = text.count(',')
         newline_count = text.count('\n')
 
-        ingredients = []
-
+        raw_items = []
         if comma_count > newline_count and comma_count > 2:
-            # Likely comma separated
             raw_items = text.split(',')
         else:
-            # Likely newline separated or mixed
-            # Split by common delimiters
             raw_items = re.split(r'[,\n•·]', text)
 
+        ingredients = []
         for item in raw_items:
+            # === RESTORED CLEANING LOGIC ===
             clean_item = self.clean_text(item)
+            
+            # Additional logic from original: Inversion/Noise filtering
             if self.is_valid_ingredient(clean_item):
                 ingredients.append(clean_item)
 
         return ingredients
         
     def clean_text(self, text: str) -> str:
-        """Clean individual ingredient line"""
-        # Remove common noise prefixes
+        """Clean individual ingredient line - Restored Filters"""
+        # 1. Remove citations/codes in brackets e.g. (CI 77891) or (Water)
+        text = re.sub(r'\s*\([^)]*\)', '', text)
+        
+        # 2. Remove percentages e.g. 2% or 0.5%
+        text = re.sub(r'\s*\d+(\.\d+)?%', '', text)
+        
+        # 3. Remove common prefixes
         text = re.sub(r'^(Ingredients:|Contains:|Active Ingredients:)', '', text, flags=re.IGNORECASE)
-        # Remove percentage numbers at end (e.g. "Water 90%")
-        text = re.sub(r'\s*\d+(\.\d+)?%$', '', text)
-        # Remove leading/trailing non-alphanumeric (except brackets)
-        text = text.strip(' .,-*:;_')
+        
+        # 4. Remove numbers/dates often found in footers
+        text = re.sub(r'\d{6,}', '', text)  # Phone numbers/Zip codes
+        
+        # 5. Remove non-alphanumeric noise at edges
+        text = text.strip(' .,-*:;_#@!&')
+        
+        # 6. Normalize whitespace
+        text = re.sub(r'\s+', ' ', text)
+        
         return text.strip()
 
     def is_valid_ingredient(self, text: str) -> bool:
         """Filter out obvious noise"""
         if len(text) < 3:
             return False
-        if text.lower() in ['ingredients', 'contains', 'made in', 'aqua', 'water']:
-             # Keep 'aqua' and 'water' but filter purely structural words
-             if text.lower() in ['ingredients', 'contains']: 
-                 return False
+            
+        text_lower = text.lower()
+        
+        # Structural words to skip
+        if text_lower in ['ingredients', 'contains', 'made in', 'dist', 'distributor', 'active ingredients']:
+            return False
+            
+        # Skip website URLs or emails
+        if 'www.' in text_lower or '.com' in text_lower or '@' in text_lower:
+            return False
+            
+        # Skip pure numbers
+        if text.replace('.', '').isdigit():
+            return False
+            
         return True
