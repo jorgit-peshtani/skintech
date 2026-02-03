@@ -51,7 +51,7 @@ const About = () => {
                         </p>
                         <p>
                             What began as a collaborative diploma project has evolved into a powerful AI-driven platform.
-                            We believe transparency shouldn't be a luxury—it should be the standard. By decoding over 10,000 ingredients
+                            We believe transparency shouldn't be a luxury—it should be the standard. By decoding over 100 ingredients
                             instantaneously, SkinTech empowers you to make safer, smarter, and more personalized skincare decisions
                             without needing a chemistry degree.
                         </p>
