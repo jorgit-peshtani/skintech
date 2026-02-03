@@ -76,6 +76,7 @@ class CreateOrderSerializer(serializers.Serializer):
     city = serializers.CharField(max_length=100)
     zip_code = serializers.CharField(max_length=20)
     country = serializers.CharField(max_length=100, default='Albania')
+    payment_method = serializers.CharField(max_length=50, required=False, default='card')
 
 
 class WebOrderSerializer(serializers.ModelSerializer):

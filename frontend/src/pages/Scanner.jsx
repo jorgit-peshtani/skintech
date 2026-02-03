@@ -109,9 +109,11 @@ const Scanner = () => {
     };
 
     const getSafetyColor = (rating) => {
-        if (rating >= 8) return 'safety-excellent';
-        if (rating >= 6) return 'safety-good';
-        if (rating >= 4) return 'safety-moderate';
+        // EWG-style scoring: 1-2 (Excellent), 3-5 (Good), 6-7 (Moderate), 8-10 (Poor/High Hazard)
+        const score = parseFloat(rating);
+        if (score <= 3) return 'safety-excellent';
+        if (score <= 5) return 'safety-good';
+        if (score <= 7) return 'safety-moderate';
         return 'safety-poor';
     };
 
