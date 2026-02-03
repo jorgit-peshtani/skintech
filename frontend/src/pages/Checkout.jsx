@@ -33,28 +33,25 @@ const Checkout = () => {
         e.preventDefault();
         setLoading(true);
 
-        const orderPayload = {
-            ...formData,
-            payment_method: paymentMethod,
-            total: (cartTotal + 5.99).toFixed(2), // Total + Shipping
-            items: items.map(item => ({
-                product_id: item.id,
-                quantity: item.quantity,
-                price: parseFloat(item.price)
-            }))
-        };
+        // DEMO MODE: Simulate API call
+        setTimeout(() => {
+            // Save demo order
+            const newOrder = {
+                id: `ORD-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
+                date: new Date().toISOString(),
+                total: (cartTotal + 5.99).toFixed(2),
+                status: 'Processing',
+                items: [...items]
+            };
 
-        try {
-            await ordersAPI.createOrder(orderPayload);
+            const existingOrders = JSON.parse(localStorage.getItem('demo_orders') || '[]');
+            localStorage.setItem('demo_orders', JSON.stringify([newOrder, ...existingOrders]));
+
             toast.success('Order placed successfully! 🎉');
             clearCart();
             navigate('/order-success');
-        } catch (error) {
-            console.error(error);
-            toast.error('Failed to place order. Please try again.');
-        } finally {
             setLoading(false);
-        }
+        }, 1500);
     };
 
     return (

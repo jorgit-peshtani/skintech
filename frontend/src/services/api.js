@@ -110,8 +110,8 @@ export const usersAPI = {
 };
 
 export const ordersAPI = {
-    createOrder: (orderData) => api.post('/api/web/orders/', orderData),
-    getMyOrders: () => api.get('/api/web/orders/'),
+    createOrder: (orderData) => api.post('/web/orders/', orderData),
+    getMyOrders: () => api.get('/web/orders/'),
 };
 
 export default api;

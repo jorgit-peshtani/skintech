@@ -1,26 +1,40 @@
 
-import dj_database_url
 import os
+import sys
+import django
 
-NEON_URL = "postgresql://neondb_owner:npg_CcFUwx9po1iI@ep-blue-morning-agax7d85-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+# Setup Django environment
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "skintech_django.settings")
+django.setup()
 
-print("--- DEBUGGING DATABASE CONFIG ---")
+from apps.scanner.models import Ingredient
+from apps.scanner.services.ingredient_analyzer import IngredientAnalyzer
 
-# 1. Test parsing the hardcoded URL
-try:
-    config = dj_database_url.parse(NEON_URL)
-    print("Parsing result:")
-    print(f"ENGINE: {config.get('ENGINE')}")
-    print(f"NAME: {config.get('NAME')}")
-    print(f"HOST: {config.get('HOST')}")
-    print("Status: SUCCESS (String is valid)")
-except Exception as e:
-    print(f"Status: FAILED parsing string. Error: {e}")
+def check_db():
+    count = Ingredient.objects.count()
+    print(f"Total Ingredients in DB: {count}")
+    
+    if count == 0:
+        print("CRITICAL: Database is empty! You need to seed ingredients.")
+        return
 
-# 2. Test environment variable visibility (if run from batch)
-env_url = os.environ.get('DATABASE_URL', 'Not Set')
-print(f"\nEnvironment DATABASE_URL: {env_url}")
-if env_url == 'Not Set' or 'sqlite' in env_url:
-    print("WARNING: Python is not seeing the Neon URL in environment variables.")
-else:
-    print("Environment variable seems correct.")
+    analyzer = IngredientAnalyzer()
+    
+    test_cases = [
+        "Aqua",
+        "Water",
+        "Glycerin",
+        "Glycerine", # Fuzzy
+        "Aqua (Water)",
+        "Parfum"
+    ]
+    
+    print("\n--- Testing Analyzer ---")
+    for name in test_cases:
+        result = analyzer.find_ingredient(name)
+        status = f"FOUND ({result.name})" if result else "NOT FOUND"
+        print(f"'{name}' -> {status}")
+
+if __name__ == "__main__":
+    check_db()

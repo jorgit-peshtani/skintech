@@ -11,69 +11,89 @@ import difflib
 
 class IngredientAnalyzer:
     def __init__(self):
-        """Initialize the ingredient analyzer"""
+        """Initialize the ingredient analyzer with JSON data"""
         self.ingredient_cache = {}
-    
-    def find_ingredient(self, name: str) -> Optional[Ingredient]:
+        self.db = []
+        self._load_db()
+
+    def _load_db(self):
+        import json
+        import os
+        try:
+            # Path to backend_django/apps/scanner/data/ingredients.json
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            json_path = os.path.join(base_dir, 'data', 'ingredients.json')
+            
+            with open(json_path, 'r', encoding='utf-8') as f:
+                self.db = json.load(f)
+            print(f">>> JSON DB Loaded: {len(self.db)} ingredients")
+        except Exception as e:
+            print(f">>> ERROR Loading JSON DB: {e}")
+            self.db = []
+
+    def find_ingredient(self, name: str) -> Optional[Dict]:
         """
-        Find ingredient in database by name (fuzzy matching)
+        Find ingredient by name (JSON lookup)
         """
+        # DEBUG LOGGING
+        print(f">>> Lookup: '{name}'")
+        
         # Check cache first
         if name.lower() in self.ingredient_cache:
+            # print(f"    -> Cached: {self.ingredient_cache[name.lower()]['name']}")
             return self.ingredient_cache[name.lower()]
         
         # Clean the name
         clean_name = self.clean_ingredient_name(name)
+        print(f"    -> Cleaned: '{clean_name}'")
         
-        # 1. Try exact match
-        ingredient = Ingredient.objects.filter(
-            Q(name__iexact=clean_name) | 
-            Q(inci_name__iexact=clean_name)
-        ).first()
+        # 1. Exact Match Check
+        for ing in self.db:
+            if ing['name'].lower() == clean_name.lower() or \
+               (ing['inci_name'] and ing['inci_name'].lower() == clean_name.lower()):
+                print(f"    -> Exact Match Found (JSON): {ing['name']}")
+                self.ingredient_cache[name.lower()] = ing
+                return ing
+                
+        # 2. Partial Match Check
+        for ing in self.db:
+            if clean_name.lower() in ing['name'].lower() or \
+               (ing['inci_name'] and clean_name.lower() in ing['inci_name'].lower()):
+                print(f"    -> Partial Match Found (JSON): {ing['name']}")
+                self.ingredient_cache[name.lower()] = ing
+                return ing
         
-        if ingredient:
-            self.ingredient_cache[name.lower()] = ingredient
-            return ingredient
-        
-        # 2. Try partial match
-        ingredient = Ingredient.objects.filter(
-            Q(name__icontains=clean_name) | 
-            Q(inci_name__icontains=clean_name)
-        ).first()
-        
-        if ingredient:
-            self.ingredient_cache[name.lower()] = ingredient
-            return ingredient
-
-        # 3. Fuzzy matching (Levenshtein distance) for OCR typos
-        # Load all names (caching this would be better at class level in production)
-        all_ingredients = list(Ingredient.objects.values_list('name', flat=True))
-        all_inci = list(Ingredient.objects.values_list('inci_name', flat=True))
-        candidates = list(set(all_ingredients + all_inci))
-        
-        matches = difflib.get_close_matches(clean_name, candidates, n=1, cutoff=0.8)
+        # 3. Fuzzy match
+        all_names = [i['name'] for i in self.db]
+        # Add INCI names to candidates
+        for i in self.db:
+            if i['inci_name']:
+                all_names.append(i['inci_name'])
+                
+        matches = difflib.get_close_matches(clean_name, all_names, n=1, cutoff=0.8)
         
         if matches:
             best_match = matches[0]
-            # Find the ingredient object for this match
-            ingredient = Ingredient.objects.filter(
-                Q(name__iexact=best_match) | 
-                Q(inci_name__iexact=best_match)
-            ).first()
-            
-            if ingredient:
-                self.ingredient_cache[name.lower()] = ingredient
-                return ingredient
-        
+            print(f"    -> Fuzzy Candidate: '{best_match}'")
+            # Find the dict
+            for ing in self.db:
+                if ing['name'] == best_match or ing['inci_name'] == best_match:
+                    print(f"    -> Fuzzy Resolved: {ing['name']}")
+                    self.ingredient_cache[name.lower()] = ing
+                    return ing
+
+        print("    -> NO MATCH found")
         return None
     
     def clean_ingredient_name(self, name: str) -> str:
         """Clean ingredient name for matching"""
-        # Remove extra whitespace
+        # 1. Remove text in parentheses (synonyms like 'Aqua (Water)')
+        name = re.sub(r'\s*\(.*?\)', '', name)
+        # 2. Remove extra whitespace
         name = re.sub(r'\s+', ' ', name.strip())
-        # Remove special characters
+        # 3. Remove special characters
         name = re.sub(r'[^\w\s-]', '', name)
-        return name
+        return name.strip()
     
     def analyze_ingredients(self, ingredient_names: List[str], skin_type: str = None) -> Dict:
         """
@@ -100,33 +120,33 @@ class IngredientAnalyzer:
             if ingredient:
                 identified.append(ingredient)
                 results['identified_ingredients'].append({
-                    'name': ingredient.name,
-                    'inci_name': ingredient.inci_name,
-                    'function': ingredient.function,
-                    'safety_rating': ingredient.safety_rating,
-                    'description': ingredient.description,
-                    'effects': ingredient.effects,
+                    'name': ingredient['name'],
+                    'inci_name': ingredient.get('inci_name'),
+                    'function': ingredient.get('function'),
+                    'safety_rating': ingredient.get('safety_rating'),
+                    'description': ingredient.get('description'),
+                    'effects': ingredient.get('effects'),
                     'warnings': [] # Local warnings for this ingredient
                 })
                 
                 # Collect safety scores
-                if ingredient.safety_rating:
-                    safety_scores.append(ingredient.safety_rating)
+                if ingredient.get('safety_rating'):
+                    safety_scores.append(ingredient['safety_rating'])
                 
                 # Check for concerns
                 ing_warnings = []
-                if ingredient.is_allergen:
-                    msg = f"{ingredient.name} is a known allergen"
+                if ingredient.get('is_allergen'):
+                    msg = f"{ingredient['name']} is a known allergen"
                     results['warnings'].append(msg)
                     ing_warnings.append("Allergen")
                 
-                if ingredient.is_irritant:
-                    msg = f"{ingredient.name} may cause irritation"
+                if ingredient.get('is_irritant'):
+                    msg = f"{ingredient['name']} may cause irritation"
                     results['warnings'].append(msg)
                     ing_warnings.append("Irritant")
                 
-                if not ingredient.pregnancy_safe:
-                    msg = f"{ingredient.name} is not recommended during pregnancy"
+                if not ingredient.get('pregnancy_safe'):
+                    msg = f"{ingredient['name']} is not recommended during pregnancy"
                     results['warnings'].append(msg)
                     ing_warnings.append("Not Pregnancy Safe")
 
@@ -134,18 +154,18 @@ class IngredientAnalyzer:
                 results['identified_ingredients'][-1]['warnings'] = ing_warnings
                 
                 # Add benefits
-                if ingredient.function:
-                    results['benefits'].append(f"{ingredient.name}: {ingredient.function}")
+                if ingredient.get('function'):
+                    results['benefits'].append(f"{ingredient['name']}: {ingredient['function']}")
                 
                 # Skin type compatibility
-                if skin_type and ingredient.effects:
-                    effect = ingredient.effects.get(skin_type.lower())
+                if skin_type and ingredient.get('effects'):
+                    effect = ingredient['effects'].get(skin_type.lower())
                     if effect:
                         if effect == 'beneficial':
-                            results['skin_compatibility'][ingredient.name] = 'Good for your skin type'
+                            results['skin_compatibility'][ingredient['name']] = 'Good for your skin type'
                         elif effect == 'avoid':
-                            results['skin_compatibility'][ingredient.name] = 'Not recommended for your skin type'
-                            results['concerns'].append(f"{ingredient.name} may not be suitable for {skin_type} skin")
+                            results['skin_compatibility'][ingredient['name']] = 'Not recommended for your skin type'
+                            results['concerns'].append(f"{ingredient['name']} may not be suitable for {skin_type} skin")
             else:
                 results['unidentified_ingredients'].append(name)
         

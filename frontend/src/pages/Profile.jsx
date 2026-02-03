@@ -14,13 +14,11 @@ const Profile = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                // If using Oscar API, the response might be paginated or format might differ.
-                // Assuming standard list for now.
-                const response = await ordersAPI.getOrders();
-                setOrders(response.data);
+                // DEMO MODE: Load from localStorage
+                const demoOrders = JSON.parse(localStorage.getItem('demo_orders') || '[]');
+                setOrders(demoOrders);
             } catch (error) {
                 console.error('Error fetching orders:', error);
-                // toast.error('Failed to load order history');
             } finally {
                 setLoading(false);
             }
@@ -82,20 +80,20 @@ const Profile = () => {
                                 <tbody>
                                     {orders.map((order) => (
                                         <tr key={order.id}>
-                                            <td>#{order.number || order.id}</td>
+                                            <td>#{order.id}</td>
                                             <td>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                                     <Calendar size={14} className="text-muted" />
-                                                    {new Date(order.date_placed || order.created_at).toLocaleDateString()}
+                                                    {new Date(order.date).toLocaleDateString()}
                                                 </div>
                                             </td>
-                                            <td><strong>€{parseFloat(order.total_incl_tax || order.total || 0).toFixed(2)}</strong></td>
+                                            <td><strong>€{order.total}</strong></td>
                                             <td>
                                                 <span className={`status-badge status-${(order.status || 'pending').toLowerCase()}`}>
-                                                    {order.status || 'Pending'}
+                                                    {order.status}
                                                 </span>
                                             </td>
-                                            <td>{order.lines?.length || order.num_items || 0} items</td>
+                                            <td>{order.items?.length || 0} items</td>
                                             <td>
                                                 <button className="btn btn-sm btn-outline-primary">
                                                     View Details

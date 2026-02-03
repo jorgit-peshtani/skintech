@@ -43,18 +43,21 @@ class ScanUploadView(APIView):
             print(f">>> Raw Text: {raw_text[:100]}...") # Print first 100 chars
             
             # 2. Extract Ingredients
+            print(">>> parsing ingredients...")
             ingredients_list = ocr.extract_ingredient_list(raw_text)
+            print(f">>> Extracted {len(ingredients_list)} potential ingredients: {ingredients_list}")
             
-            if not ingredients_list:
-                return Response({
-                    'message': 'No ingredients detected', 
-                    'raw_text': raw_text
-                }, status=status.HTTP_200_OK)
+            # REMOVED EARLY RETURN: Let analyzer report 0 instead of returning a different JSON structure
+            # if not ingredients_list: ...
 
             # 3. Analyze Ingredients
+            print(">>> Analyzing ingredients...")
             analyzer = IngredientAnalyzer()
             # Determine skin type if user is authenticated (future feature)
             analysis_result = analyzer.analyze_ingredients(ingredients_list)
+            print(f">>> Analysis Result: Identified={len(analysis_result['identified_ingredients'])}, Unidentified={len(analysis_result['unidentified_ingredients'])}")
+            print(f">>> Identified: {[i['name'] for i in analysis_result['identified_ingredients']]}")
+            print(f">>> Unidentified: {analysis_result['unidentified_ingredients']}")
             
             return Response(analysis_result, status=status.HTTP_200_OK)
 

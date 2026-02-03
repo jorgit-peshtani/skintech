@@ -61,6 +61,12 @@ class WebOrderViewSet(viewsets.ModelViewSet):
         from django.utils import timezone
         
         serializer = CreateOrderSerializer(data=request.data)
+        
+        if not serializer.is_valid():
+            print(f">>> ORDER CREATION INVALID: {serializer.errors}")
+            # print(f">>> Request Data: {request.data}")
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
         

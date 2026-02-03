@@ -1,13 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
 import { CheckCircle } from 'lucide-react';
 import './OrderSuccess.css';
 
 const OrderSuccess = () => {
     return (
         <div className="success-page">
-            <Navbar />
             <div className="container success-container">
                 <div className="success-card">
                     <CheckCircle size={80} color="#10B981" className="success-icon" />

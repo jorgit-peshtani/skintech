@@ -118,19 +118,28 @@ class OCRService:
     def clean_text(self, text: str) -> str:
         """Clean individual ingredient line - Restored Filters"""
         # 1. Remove citations/codes in brackets e.g. (CI 77891) or (Water)
-        text = re.sub(r'\s*\([^)]*\)', '', text)
+        # Handle standard (XYZ)
+        text = re.sub(r'\s*\(.*?\)', '', text)
+        # Handle unclosed parenthesis at end of string e.g. "Aqua (Water"
+        text = re.sub(r'\s*\(.*$', '', text)
         
         # 2. Remove percentages e.g. 2% or 0.5%
         text = re.sub(r'\s*\d+(\.\d+)?%', '', text)
         
-        # 3. Remove common prefixes
-        text = re.sub(r'^(Ingredients:|Contains:|Active Ingredients:)', '', text, flags=re.IGNORECASE)
+        # 3. Remove common prefixes and complex headers
+        # Handles: "Ingredients:", "SKLADNIKI/INGREDIENTS:", "Ingredients (INCI):"
+        text = re.sub(r'^[\d\s]*', '', text) # Remove leading numbers/dates like 220909
+        # Regex explanation:
+        # ^.*?: Match start of line/chunk
+        # (?: ...): Non-capturing groups for variants
+        # SK.ADNIKI matches SKŁADNIKI, SKLADNIKI, etc.
+        text = re.sub(r'^(?:SK.ADNIKI\/)?(?:Ingredients|Contains|Active Ingredients)(?:.*?)[\:]', '', text, flags=re.IGNORECASE)
         
         # 4. Remove numbers/dates often found in footers
         text = re.sub(r'\d{6,}', '', text)  # Phone numbers/Zip codes
         
         # 5. Remove non-alphanumeric noise at edges
-        text = text.strip(' .,-*:;_#@!&')
+        text = text.strip(' .,-*:;_#@!&()[]/')
         
         # 6. Normalize whitespace
         text = re.sub(r'\s+', ' ', text)
