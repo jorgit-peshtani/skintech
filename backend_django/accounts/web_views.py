@@ -79,7 +79,7 @@ class WebOrderViewSet(viewsets.ModelViewSet):
 
             user = request.user if request.user.is_authenticated else None
 
-            order = Order.objects.create(
+            order = Order(
                 number=order_number,
                 user=user,
                 guest_email=data.get('email', '') if not user else '',
@@ -90,8 +90,11 @@ class WebOrderViewSet(viewsets.ModelViewSet):
                 date_placed=timezone.now(),
                 shipping_incl_tax=Decimal('5.99'),
                 shipping_excl_tax=Decimal('4.99'),
-                analytics_tracked=False,
             )
+            # analytics_tracked is a DB column with NOT NULL but not exposed
+            # as a keyword arg in this Oscar version — set it directly
+            order.analytics_tracked = False
+            order.save()
 
             # 2. Create Lines
             for item in data['items']:
