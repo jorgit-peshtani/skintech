@@ -189,27 +189,74 @@ def simple_login(request):
 
 
 @csrf_exempt
-@require_http_methods(["GET"])
-def simple_orders(request):
-    """Simple orders endpoint - returns Oscar orders in desktop-friendly format"""
+@require_http_methods(["GET", "PUT", "PATCH"])
+def simple_orders(request, order_id=None):
+    """Simple orders endpoint - returns Oscar orders with line items for desktop"""
     try:
-        orders = Order.objects.all().order_by('-date_placed')
-        
-        orders_data = []
-        for order in orders:
-            orders_data.append({
+        if request.method == 'GET':
+            if order_id:
+                order = Order.objects.get(id=order_id)
+                lines = []
+                for line in order.lines.all():
+                    lines.append({
+                        'product_id': line.product_id,
+                        'title': line.title,
+                        'quantity': line.quantity,
+                        'price': str(line.unit_price_incl_tax or 0),
+                    })
+                return JsonResponse({
+                    'id': order.id,
+                    'order_number': order.number,
+                    'created_at': order.date_placed.isoformat() if order.date_placed else None,
+                    'user_id': order.user_id,
+                    'user_email': order.user.email if order.user else 'Guest',
+                    'items': lines,
+                    'total': str(order.total_incl_tax or 0),
+                    'status': order.status or 'Pending',
+                })
+            else:
+                orders = Order.objects.all().order_by('-date_placed')
+                orders_data = []
+                for order in orders:
+                    lines = []
+                    for line in order.lines.all():
+                        lines.append({
+                            'product_id': line.product_id,
+                            'title': line.title,
+                            'quantity': line.quantity,
+                            'price': str(line.unit_price_incl_tax or 0),
+                        })
+                    orders_data.append({
+                        'id': order.id,
+                        'order_number': order.number,
+                        'created_at': order.date_placed.isoformat() if order.date_placed else None,
+                        'user_id': order.user_id,
+                        'user_email': order.user.email if order.user else 'Guest',
+                        'items': lines,
+                        'total': str(order.total_incl_tax or 0),
+                        'status': order.status or 'Pending',
+                    })
+                return JsonResponse(orders_data, safe=False)
+
+        elif request.method in ['PUT', 'PATCH']:
+            if not order_id:
+                return JsonResponse({'error': 'Order ID required for update'}, status=400)
+            order = Order.objects.get(id=order_id)
+            data = json.loads(request.body)
+            if 'status' in data:
+                order.status = data['status']
+                order.save()
+            return JsonResponse({
                 'id': order.id,
+                'status': order.status,
                 'order_number': order.number,
-                'created_at': order.date_placed.isoformat() if order.date_placed else None,
-                'user_id': order.user_id,
-                'items': [],  # Could populate from order.lines if needed
-                'total': str(order.total_incl_tax or 0),
-                'status': order.status.lower() if order.status else 'pending'
             })
-        
-        return JsonResponse(orders_data, safe=False)
+
+    except Order.DoesNotExist:
+        return JsonResponse({'error': 'Order not found'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
 
 
 @csrf_exempt

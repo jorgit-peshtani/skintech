@@ -27,6 +27,7 @@ urlpatterns = [
     path('simple/users/<int:user_id>/', simple_users, name='simple-users-detail'),
     path('simple/login/', simple_login, name='simple-login'),
     path('simple/orders/', simple_orders, name='simple-orders'),
+    path('simple/orders/<int:order_id>/', simple_orders, name='simple-orders-detail'),
     path('simple/products/', simple_products, name='simple-products-list'),
     path('simple/products/<int:product_id>/', simple_products, name='simple-products-detail'),
     

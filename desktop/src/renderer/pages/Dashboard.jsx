@@ -59,11 +59,11 @@ function Dashboard() {
                 <div>
                     <h1>Dashboard</h1>
                     <p className="dashboard-subtitle">
-                        Overview • Last updated: {lastUpdate.toLocaleTimeString()} • Click 🔄 to refresh
+                        Overview • Last updated: {lastUpdate.toLocaleTimeString()} • Click refresh button to refresh
                     </p>
                 </div>
                 <button className="refresh-btn" onClick={() => loadDashboard()} title="Refresh now">
-                    🔄
+                    Refresh
                 </button>
             </div>
 
@@ -71,7 +71,7 @@ function Dashboard() {
                 {/* Users Stats */}
                 <div className="stat-card users">
                     <div className="stat-header">
-                        <span className="stat-icon">👥</span>
+                        <span className="stat-icon"></span>
                         <h3>Users</h3>
                     </div>
                     <div className="stat-main">
@@ -91,7 +91,7 @@ function Dashboard() {
                 {/* Products Stats */}
                 <div className="stat-card products">
                     <div className="stat-header">
-                        <span className="stat-icon">📦</span>
+                        <span className="stat-icon"></span>
                         <h3>Products</h3>
                     </div>
                     <div className="stat-main">
@@ -108,7 +108,7 @@ function Dashboard() {
                 {/* Orders Stats */}
                 <div className="stat-card orders">
                     <div className="stat-header">
-                        <span className="stat-icon">📦</span>
+                        <span className="stat-icon"></span>
                         <h3>Orders</h3>
                     </div>
                     <div className="stat-main">
@@ -125,31 +125,13 @@ function Dashboard() {
                     </div>
                 </div>
 
-                {/* Scans Stats */}
-                <div className="stat-card scans">
-                    <div className="stat-header">
-                        <span className="stat-icon">🔬</span>
-                        <h3>AI Scans</h3>
-                    </div>
-                    <div className="stat-main">
-                        <div className="stat-value">{stats.scans.total}</div>
-                        <div className="stat-label">Total Scans</div>
-                    </div>
-                    <div className="stat-details">
-                        <div className="stat-item">
-                            <span className="stat-badge today">{stats.scans.today} Today</span>
-                        </div>
-                        <div className="stat-item">
-                            <span className="stat-badge success">{stats.scans.positive} Safe</span>
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
             {/* Revenue Card */}
             <div className="revenue-card">
                 <div className="revenue-header">
-                    <span className="stat-icon">💰</span>
+                    <span className="stat-icon"></span>
                     <h3>Revenue</h3>
                 </div>
                 <div className="revenue-value">${(stats.orders?.revenue || 0).toLocaleString()}</div>

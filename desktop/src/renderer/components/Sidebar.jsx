@@ -3,10 +3,10 @@ import './Sidebar.css';
 
 function Sidebar({ currentPage, onNavigate, onLogout }) {
     const menuItems = [
-        { id: 'dashboard', icon: '📊', label: 'Dashboard' },
-        { id: 'users', icon: '👥', label: 'Users' },
-        { id: 'products', icon: '🛍️', label: 'Products' },
-        { id: 'orders', icon: '📦', label: 'Orders' },
+        { id: 'dashboard', icon: '', label: 'Dashboard' },
+        { id: 'users', icon: '', label: 'Users' },
+        { id: 'products', icon: '', label: 'Products' },
+        { id: 'orders', icon: '', label: 'Orders' },
     ];
 
     const user = JSON.parse(localStorage.getItem('admin_user') || '{}');
@@ -15,7 +15,7 @@ function Sidebar({ currentPage, onNavigate, onLogout }) {
         <aside className="sidebar">
             <div className="sidebar-header">
                 <div className="logo">
-                    <span className="logo-icon">🧴</span>
+                    <span className="logo-icon"></span>
                     <span className="logo-text">SkinTech</span>
                 </div>
                 <div className="admin-badge">Admin Panel</div>
@@ -44,7 +44,7 @@ function Sidebar({ currentPage, onNavigate, onLogout }) {
 
             <div className="sidebar-footer">
                 <button className="logout-button" onClick={onLogout}>
-                    <span className="nav-icon">🚪</span>
+                    <span className="nav-icon"></span>
                     <span className="nav-label">Logout</span>
                 </button>
             </div>

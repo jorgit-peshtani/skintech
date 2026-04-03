@@ -40,7 +40,6 @@
 
 .refresh-btn:hover {
     background: rgba(176, 199, 221, 0.3);
-    transform: rotate(180deg);
 }
 
 .add-user-btn {

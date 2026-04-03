@@ -73,16 +73,7 @@ const Home = () => {
                             </p>
                         </div>
 
-                        <div className="feature-card">
-                            <div className="feature-icon">
-                                <ShoppingBag size={32} />
-                            </div>
-                            <h3>Certified Products</h3>
-                            <p>
-                                Shop from our curated collection of scientifically verified
-                                and certified cosmetic products.
-                            </p>
-                        </div>
+
 
                         <div className="feature-card">
                             <div className="feature-icon">

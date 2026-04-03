@@ -49,7 +49,6 @@ export const statsAPI = {
 export const usersAPI = {
     getAll: () => api.get('/users/'),
     getById: (id) => api.get(`/users/${id}/`),
-    toggleStatus: (id) => api.post(`/users/${id}/toggle/`),
     create: (userData) => api.post('/users/', userData),
     update: (id, userData) => api.put(`/users/${id}/`, userData),
     delete: (id) => api.delete(`/users/${id}/`),

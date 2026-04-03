@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { ordersAPI } from '../services/api';
 import './Orders.css';
 
+const STATUS_OPTIONS = ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
+
 function Orders() {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');
     const [filterStatus, setFilterStatus] = useState('all');
+    const [updatingId, setUpdatingId] = useState(null);
 
     useEffect(() => {
         loadOrders();
@@ -14,7 +18,7 @@ function Orders() {
 
     const loadOrders = async () => {
         try {
-            setLoading(true);
+            setLoading(orders.length === 0);
             const response = await ordersAPI.getAll();
             setOrders(response.data);
             setError('');
@@ -26,31 +30,27 @@ function Orders() {
         }
     };
 
-    const handleUpdateStatus = async (orderId, newStatus) => {
+    const handleStatusChange = async (orderId, newStatus) => {
+        setUpdatingId(orderId);
         try {
             await ordersAPI.updateStatus(orderId, newStatus);
-            loadOrders(); // Reload to get updated data
+            setOrders(prev =>
+                prev.map(o => o.id === orderId ? { ...o, status: newStatus } : o)
+            );
         } catch (err) {
-            console.error('Failed to update order status:', err);
             alert('Failed to update order status');
+        } finally {
+            setUpdatingId(null);
         }
     };
 
     const filteredOrders = orders.filter(order => {
-        if (filterStatus === 'all') return true;
-        return order.status === filterStatus;
+        const matchesSearch =
+            (order.order_number || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (order.user_email || '').toLowerCase().includes(searchTerm.toLowerCase());
+        if (filterStatus === 'all') return matchesSearch;
+        return matchesSearch && order.status?.toLowerCase() === filterStatus.toLowerCase();
     });
-
-    const getStatusColor = (status) => {
-        const colors = {
-            pending: 'warning',
-            paid: 'info',
-            shipped: 'primary',
-            delivered: 'success',
-            cancelled: 'error'
-        };
-        return colors[status] || 'default';
-    };
 
     if (loading) {
         return (
@@ -73,36 +73,33 @@ function Orders() {
     return (
         <div className="orders-page">
             <div className="orders-header">
-                <h1>Order Management</h1>
-                <p className="orders-subtitle">View and manage all orders</p>
+                <div>
+                    <h1>Order Management</h1>
+                    <p className="orders-subtitle">Track and manage all customer orders</p>
+                </div>
+                <div className="header-actions">
+                    <button className="refresh-btn" onClick={loadOrders}>Refresh</button>
+                </div>
             </div>
 
             <div className="orders-controls">
+                <input
+                    type="text"
+                    className="search-input"
+                    placeholder="Search by order number or customer email..."
+                    value={searchTerm}
+                    onChange={e => setSearchTerm(e.target.value)}
+                />
                 <div className="filter-buttons">
-                    <button
-                        className={`filter-btn ${filterStatus === 'all' ? 'active' : ''}`}
-                        onClick={() => setFilterStatus('all')}
-                    >
-                        All ({orders.length})
-                    </button>
-                    <button
-                        className={`filter-btn ${filterStatus === 'pending' ? 'active' : ''}`}
-                        onClick={() => setFilterStatus('pending')}
-                    >
-                        Pending ({orders.filter(o => o.status === 'pending').length})
-                    </button>
-                    <button
-                        className={`filter-btn ${filterStatus === 'shipped' ? 'active' : ''}`}
-                        onClick={() => setFilterStatus('shipped')}
-                    >
-                        Shipped ({orders.filter(o => o.status === 'shipped').length})
-                    </button>
-                    <button
-                        className={`filter-btn ${filterStatus === 'delivered' ? 'active' : ''}`}
-                        onClick={() => setFilterStatus('delivered')}
-                    >
-                        Delivered ({orders.filter(o => o.status === 'delivered').length})
-                    </button>
+                    {['all', ...STATUS_OPTIONS].map(s => (
+                        <button
+                            key={s}
+                            className={`filter-btn ${filterStatus === s ? 'active' : ''}`}
+                            onClick={() => setFilterStatus(s)}
+                        >
+                            {s === 'all' ? `All (${orders.length})` : s}
+                        </button>
+                    ))}
                 </div>
             </div>
 
@@ -111,38 +108,43 @@ function Orders() {
                     <thead>
                         <tr>
                             <th>Order #</th>
-                            <th>Date</th>
                             <th>Customer</th>
                             <th>Items</th>
                             <th>Total</th>
+                            <th>Date</th>
                             <th>Status</th>
-                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {filteredOrders.map(order => (
                             <tr key={order.id}>
-                                <td className="order-number">{order.order_number}</td>
-                                <td>{new Date(order.created_at).toLocaleDateString()}</td>
-                                <td>User #{order.user_id}</td>
-                                <td>{order.items?.length || 0} items</td>
-                                <td className="total">${parseFloat(order.total).toFixed(2)}</td>
+                                <td><strong>{order.order_number}</strong></td>
+                                <td>{order.user_email || 'Guest'}</td>
                                 <td>
-                                    <span className={`status-badge ${getStatusColor(order.status)}`}>
-                                        {order.status}
-                                    </span>
+                                    {order.items && order.items.length > 0 ? (
+                                        <ul className="order-items-list">
+                                            {order.items.map((item, idx) => (
+                                                <li key={idx}>
+                                                    {item.title} × {item.quantity}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <span className="no-items">—</span>
+                                    )}
                                 </td>
+                                <td className="price">€{parseFloat(order.total || 0).toFixed(2)}</td>
+                                <td>{order.created_at ? new Date(order.created_at).toLocaleDateString() : '—'}</td>
                                 <td>
                                     <select
-                                        className="status-select"
-                                        value={order.status}
-                                        onChange={(e) => handleUpdateStatus(order.id, e.target.value)}
+                                        className={`status-select status-${(order.status || 'pending').toLowerCase()}`}
+                                        value={order.status || 'Pending'}
+                                        onChange={e => handleStatusChange(order.id, e.target.value)}
+                                        disabled={updatingId === order.id}
                                     >
-                                        <option value="pending">Pending</option>
-                                        <option value="paid">Paid</option>
-                                        <option value="shipped">Shipped</option>
-                                        <option value="delivered">Delivered</option>
-                                        <option value="cancelled">Cancelled</option>
+                                        {STATUS_OPTIONS.map(s => (
+                                            <option key={s} value={s}>{s}</option>
+                                        ))}
                                     </select>
                                 </td>
                             </tr>
@@ -155,23 +157,6 @@ function Orders() {
                         <p>No orders found</p>
                     </div>
                 )}
-            </div>
-
-            <div className="orders-stats">
-                <div className="stat-item">
-                    <span className="stat-label">Total Orders</span>
-                    <span className="stat-value">{orders.length}</span>
-                </div>
-                <div className="stat-item">
-                    <span className="stat-label">Pending</span>
-                    <span className="stat-value">{orders.filter(o => o.status === 'pending').length}</span>
-                </div>
-                <div className="stat-item">
-                    <span className="stat-label">Total Revenue</span>
-                    <span className="stat-value">
-                        ${orders.reduce((sum, o) => sum + parseFloat(o.total), 0).toFixed(2)}
-                    </span>
-                </div>
             </div>
         </div>
     );

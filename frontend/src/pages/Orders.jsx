@@ -1,18 +1,29 @@
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShoppingBag, Package, ChevronRight } from 'lucide-react';
-import './Orders.css'; // You might need to create this CSS or reuse styles
+import { ShoppingBag } from 'lucide-react';
+import { ordersAPI } from '../services/api';
+import './Orders.css';
 
 const Orders = () => {
     const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Load demo orders from localStorage
-        const demoOrders = JSON.parse(localStorage.getItem('demo_orders') || '[]');
-        setOrders(demoOrders);
+        ordersAPI.getMyOrders()
+            .then(res => setOrders(res.data))
+            .catch(err => console.error('Failed to load orders:', err))
+            .finally(() => setLoading(false));
     }, []);
+
+    if (loading) {
+        return (
+            <div className="container orders-empty-container" style={{ padding: '4rem 0', textAlign: 'center' }}>
+                <p style={{ color: '#6B7280' }}>Loading your orders...</p>
+            </div>
+        );
+    }
 
     if (orders.length === 0) {
         return (
@@ -49,7 +60,7 @@ const Orders = () => {
                             marginBottom: '1rem'
                         }}>
                             <div>
-                                <h3 style={{ margin: 0, fontSize: '1.1rem' }}>Order #{order.id}</h3>
+                                <h3 style={{ margin: 0, fontSize: '1.1rem' }}>Order {order.number}</h3>
                                 <div style={{ fontSize: '0.9rem', color: '#6B7280', marginTop: '0.25rem' }}>
                                     Placed on {new Date(order.date).toLocaleDateString()}
                                 </div>
@@ -95,7 +106,7 @@ const Orders = () => {
                         }}>
                             <div>
                                 <span style={{ color: '#6B7280', marginRight: '0.5rem' }}>Total Amount:</span>
-                                <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>€{order.total}</span>
+                                <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>€{parseFloat(order.total).toFixed(2)}</span>
                             </div>
                             {/* <button className="btn btn-secondary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
                                 View Details

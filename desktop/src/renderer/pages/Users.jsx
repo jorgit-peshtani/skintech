@@ -11,6 +11,7 @@ function Users() {
     const [showModal, setShowModal] = useState(false);
     const [modalMode, setModalMode] = useState('add'); // 'add' or 'edit'
     const [selectedUser, setSelectedUser] = useState(null);
+    const [confirmDelete, setConfirmDelete] = useState(null);
     const [formData, setFormData] = useState({
         email: '',
         username: '',
@@ -37,9 +38,9 @@ function Users() {
         }
     };
 
-    const handleToggleStatus = async (userId) => {
+    const handleToggleStatus = async (user) => {
         try {
-            await usersAPI.toggleStatus(userId);
+            await usersAPI.update(user.id, { is_active: !user.is_active });
             loadUsers();
         } catch (err) {
             console.error('Failed to toggle user status:', err);
@@ -73,18 +74,21 @@ function Users() {
         setShowModal(true);
     };
 
-    const handleDeleteUser = async (userId, username) => {
-        if (!confirm(`Are you sure you want to delete user "${username}"? This action cannot be undone.`)) {
-            return;
-        }
+    const handleDeleteUser = (userId, username) => {
+        setConfirmDelete({ id: userId, username });
+    };
+
+    const confirmDeleteAction = async () => {
+        if (!confirmDelete) return;
 
         try {
-            await usersAPI.delete(userId);
-            // alert('User deleted successfully'); // Removed to prevent focus issues
+            await usersAPI.delete(confirmDelete.id);
+            setConfirmDelete(null);
             loadUsers();
         } catch (err) {
             console.error('Failed to delete user:', err);
             alert(err.response?.data?.error || 'Failed to delete user');
+            setConfirmDelete(null);
         }
     };
 
@@ -143,14 +147,14 @@ function Users() {
             <div className="users-header">
                 <div>
                     <h1>User Management</h1>
-                    <p className="users-subtitle">Manage all registered users • Click 🔄 to refresh</p>
+                    <p className="users-subtitle">Manage all registered users • Click refresh button to refresh</p>
                 </div>
                 <div className="header-actions">
                     <button className="refresh-btn" onClick={() => loadUsers()} title="Refresh">
-                        🔄
+                        Refresh
                     </button>
                     <button className="add-user-btn" onClick={handleAddUser}>
-                        ➕ Add New User
+                        Add New User
                     </button>
                 </div>
             </div>
@@ -225,21 +229,21 @@ function Users() {
                                         onClick={() => handleEditUser(user)}
                                         title="Edit user"
                                     >
-                                        ✏️
+                                        Edit
                                     </button>
                                     <button
                                         className={`action-btn ${user.is_active ? 'deactivate' : 'activate'}`}
-                                        onClick={() => handleToggleStatus(user.id)}
+                                        onClick={() => handleToggleStatus(user)}
                                         title={user.is_active ? 'Deactivate' : 'Activate'}
                                     >
-                                        {user.is_active ? '🚫' : '✅'}
+                                        {user.is_active ? 'Deactivate' : 'Activate'}
                                     </button>
                                     <button
                                         className="action-btn delete"
                                         onClick={() => handleDeleteUser(user.id, user.username)}
                                         title="Delete user"
                                     >
-                                        🗑️
+                                        Delete
                                     </button>
                                 </td>
                             </tr>
@@ -321,6 +325,29 @@ function Users() {
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Confirm Delete Modal */}
+            {confirmDelete && (
+                <div className="modal-overlay" onClick={() => setConfirmDelete(null)}>
+                    <div className="modal-content" style={{ maxWidth: '400px' }} onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-header">
+                            <h2>Confirm Deletion</h2>
+                            <button className="modal-close" onClick={() => setConfirmDelete(null)}>✕</button>
+                        </div>
+                        <div style={{ padding: '20px 0' }}>
+                            <p>Are you sure you want to delete user <strong>"{confirmDelete.username}"</strong>? This action cannot be undone.</p>
+                        </div>
+                        <div className="modal-actions">
+                            <button type="button" className="btn-cancel" onClick={() => setConfirmDelete(null)}>
+                                Cancel
+                            </button>
+                            <button type="button" className="action-btn delete" style={{ padding: '8px 16px', borderRadius: '6px' }} onClick={confirmDeleteAction}>
+                                Delete User
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

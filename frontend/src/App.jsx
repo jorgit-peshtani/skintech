@@ -21,6 +21,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import FAQ from './pages/FAQ';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -48,6 +51,9 @@ function App() {
                         <Route path="/register" element={<Register />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/contact" element={<Contact />} />
+                        <Route path="/faq" element={<FAQ />} />
+                        <Route path="/privacy" element={<PrivacyPolicy />} />
+                        <Route path="/terms" element={<TermsOfService />} />
 
                         {/* Protected Routes */}
                         <Route

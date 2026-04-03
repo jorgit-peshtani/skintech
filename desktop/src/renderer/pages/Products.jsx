@@ -11,6 +11,7 @@ function Products() {
     const [showModal, setShowModal] = useState(false);
     const [modalMode, setModalMode] = useState('add');
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const [confirmDelete, setConfirmDelete] = useState(null);
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -69,15 +70,21 @@ function Products() {
         setShowModal(true);
     };
 
-    const handleDeleteProduct = async (productId, productName) => {
-        if (!confirm(`Delete "${productName}"? This cannot be undone.`)) return;
+    const handleDeleteProduct = (productId, productName) => {
+        setConfirmDelete({ id: productId, name: productName });
+    };
+
+    const confirmDeleteAction = async () => {
+        if (!confirmDelete) return;
 
         try {
-            await productsAPI.delete(productId);
-            alert('Product deleted successfully');
+            await productsAPI.delete(confirmDelete.id);
+            // alert('Product deleted successfully'); // Removed to prevent focus issues
+            setConfirmDelete(null);
             loadProducts();
         } catch (err) {
             alert(err.response?.data?.error || 'Failed to delete product');
+            setConfirmDelete(null);
         }
     };
 
@@ -153,14 +160,14 @@ function Products() {
             <div className="products-header">
                 <div>
                     <h1>Product Management</h1>
-                    <p className="products-subtitle">Manage catalog • Click 🔄 to refresh</p>
+                    <p className="products-subtitle">Manage catalog • Click refresh button to refresh</p>
                 </div>
                 <div className="header-actions">
                     <button className="refresh-btn" onClick={() => loadProducts()} title="Refresh">
-                        🔄
+                        Refresh
                     </button>
                     <button className="add-product-btn" onClick={handleAddProduct}>
-                        ➕ Add Product
+                        Add Product
                     </button>
                 </div>
             </div>
@@ -218,16 +225,14 @@ function Products() {
                                 </td>
                                 <td className="price">${parseFloat(product.price || 0).toFixed(2)}</td>
                                 <td>
-                                    <span className={`stock-badge ${product.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
-                                        {product.stock || 0} units
-                                    </span>
+                                    {product.stock || 0}
                                 </td>
                                 <td className="action-buttons">
                                     <button className="btn-edit" onClick={() => handleEditProduct(product)}>
-                                        ✏️
+                                        Edit
                                     </button>
                                     <button className="btn-delete" onClick={() => handleDeleteProduct(product.id, product.title)}>
-                                        🗑️
+                                        Delete
                                     </button>
                                 </td>
                             </tr>
@@ -336,7 +341,7 @@ function Products() {
                                         className="browse-btn"
                                         onClick={() => document.getElementById('image-file-input').click()}
                                     >
-                                        📁 Browse
+                                        Browse
                                     </button>
                                 </div>
                             </div>
@@ -345,6 +350,29 @@ function Products() {
                                 <button type="submit" className="btn-save">{modalMode === 'add' ? 'Create' : 'Update'}</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Confirm Delete Modal */}
+            {confirmDelete && (
+                <div className="modal-overlay" onClick={() => setConfirmDelete(null)}>
+                    <div className="modal-content" style={{ maxWidth: '400px' }} onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-header">
+                            <h2>Confirm Deletion</h2>
+                            <button className="modal-close" onClick={() => setConfirmDelete(null)}>✕</button>
+                        </div>
+                        <div style={{ padding: '20px 0' }}>
+                            <p>Are you sure you want to delete product <strong>"{confirmDelete.name}"</strong>? This action cannot be undone.</p>
+                        </div>
+                        <div className="modal-actions">
+                            <button type="button" className="btn-cancel" onClick={() => setConfirmDelete(null)}>
+                                Cancel
+                            </button>
+                            <button type="button" className="action-btn delete" style={{ padding: '8px 16px', borderRadius: '6px' }} onClick={confirmDeleteAction}>
+                                Delete Product
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
