@@ -109,10 +109,7 @@ class WebOrderViewSet(viewsets.ModelViewSet):
                         line_price_before_discounts_excl_tax=(item['price'] * item['quantity']) / Decimal('1.2'),
                         unit_price_incl_tax=item['price'],
                         unit_price_excl_tax=item['price'] / Decimal('1.2'),
-                        title=product.title,
-                        # Add tracking fields to bypass Oscar NOT NULL DB constraints
-                        allocation_consumed=0,
-                        allocation_cancelled=0,
+                        title=product.title
                     )
                     
                     # Update stock (Simple)
