@@ -59,68 +59,74 @@ class WebOrderViewSet(viewsets.ModelViewSet):
         import uuid
         from decimal import Decimal
         from django.utils import timezone
-        
-        serializer = CreateOrderSerializer(data=request.data)
-        
-        if not serializer.is_valid():
-            print(f">>> ORDER CREATION INVALID: {serializer.errors}")
-            # print(f">>> Request Data: {request.data}")
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-            
-        serializer.is_valid(raise_exception=True)
-        data = serializer.validated_data
-        
-        # Models
-        Order = get_model('order', 'Order')
-        Line = get_model('order', 'Line')
-        Product = get_model('catalogue', 'Product')
-        
-        # 1. Create Order
-        order_number = f"ORD-{uuid.uuid4().hex[:8].upper()}"
-        
-        user = request.user if request.user.is_authenticated else None
-        
-        order = Order.objects.create(
-            number=order_number,
-            user=user,
-            total_incl_tax=data['total'],
-            total_excl_tax=data['total'] / Decimal('1.2'), # Approx tax
-            currency='EUR',
-            status='Pending',
-            date_placed=timezone.now(),
-            shipping_incl_tax=Decimal('0.00'),
-            shipping_excl_tax=Decimal('0.00'),
-            # Guest info if needed, but we rely on simple fields for now
-        )
-        
-        # 2. Create Lines
-        for item in data['items']:
-            try:
-                product = Product.objects.get(id=item['product_id'])
-                Line.objects.create(
-                    order=order,
-                    product=product,
-                    partner_sku=f"SKU-{product.id}",
-                    quantity=item['quantity'],
-                    line_price_incl_tax=item['price'] * item['quantity'],
-                    line_price_excl_tax=(item['price'] * item['quantity']) / Decimal('1.2'),
-                    unit_price_incl_tax=item['price'],
-                    unit_price_excl_tax=item['price'] / Decimal('1.2'),
-                    title=product.title
-                )
-                
-                # Update stock (Simple)
-                stockrecord = product.stockrecords.first()
-                if stockrecord and stockrecord.num_in_stock >= item['quantity']:
-                    stockrecord.num_in_stock -= item['quantity']
-                    stockrecord.save()
-                    
-            except Product.DoesNotExist:
-                continue
-                
-        return Response({
-            'success': True,
-            'order_id': order.id,
-            'order_number': order.number
-        }, status=status.HTTP_201_CREATED)
+
+        try:
+            serializer = CreateOrderSerializer(data=request.data)
+
+            if not serializer.is_valid():
+                print(f">>> ORDER CREATION INVALID: {serializer.errors}")
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+            data = serializer.validated_data
+
+            # Models
+            Order = get_model('order', 'Order')
+            Line = get_model('order', 'Line')
+            Product = get_model('catalogue', 'Product')
+
+            # 1. Create Order
+            order_number = f"ORD-{uuid.uuid4().hex[:8].upper()}"
+
+            user = request.user if request.user.is_authenticated else None
+
+            order = Order.objects.create(
+                number=order_number,
+                user=user,
+                guest_email=data.get('email', '') if not user else '',
+                total_incl_tax=data['total'],
+                total_excl_tax=data['total'] / Decimal('1.2'),
+                currency='EUR',
+                status='Pending',
+                date_placed=timezone.now(),
+                shipping_incl_tax=Decimal('5.99'),
+                shipping_excl_tax=Decimal('4.99'),
+                analytics_tracked=False,
+            )
+
+            # 2. Create Lines
+            for item in data['items']:
+                try:
+                    product = Product.objects.get(id=item['product_id'])
+                    Line.objects.create(
+                        order=order,
+                        product=product,
+                        partner_sku=f"SKU-{product.id}",
+                        quantity=item['quantity'],
+                        line_price_incl_tax=item['price'] * item['quantity'],
+                        line_price_excl_tax=(item['price'] * item['quantity']) / Decimal('1.2'),
+                        unit_price_incl_tax=item['price'],
+                        unit_price_excl_tax=item['price'] / Decimal('1.2'),
+                        title=product.title
+                    )
+
+                    # Update stock
+                    stockrecord = product.stockrecords.first()
+                    if stockrecord and stockrecord.num_in_stock >= item['quantity']:
+                        stockrecord.num_in_stock -= item['quantity']
+                        stockrecord.save()
+
+                except Product.DoesNotExist:
+                    continue
+
+            return Response({
+                'success': True,
+                'order_id': order.id,
+                'order_number': order.number
+            }, status=status.HTTP_201_CREATED)
+
+        except Exception as e:
+            import traceback
+            print(f">>> ORDER CREATION ERROR: {str(e)}")
+            print(traceback.format_exc())
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
