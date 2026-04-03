@@ -85,8 +85,29 @@ class WebOrderSerializer(serializers.ModelSerializer):
     total = serializers.DecimalField(source='total_incl_tax', max_digits=12, decimal_places=2)
     number = serializers.CharField()
     date = serializers.DateTimeField(source='date_placed')
+    items = serializers.SerializerMethodField()
     
     class Meta:
         model = get_model('order', 'Order')
-        fields = ['id', 'number', 'status', 'total', 'date']
-
+        fields = ['id', 'number', 'status', 'total', 'date', 'items']
+        
+    def get_items(self, obj):
+        lines = obj.lines.all()
+        result = []
+        for line in lines:
+            image_url = None
+            if line.product:
+                primary = line.product.primary_image()
+                if primary:
+                    try:
+                        image_url = self.context['request'].build_absolute_uri(primary.original.url)
+                    except:
+                        pass
+            
+            result.append({
+                'title': line.title,
+                'quantity': line.quantity,
+                'price': str(line.line_price_incl_tax / line.quantity) if line.quantity else "0.00",
+                'image': image_url or '/api/placeholder/150/150'
+            })
+        return result
