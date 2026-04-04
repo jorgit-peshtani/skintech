@@ -49,6 +49,21 @@ class WebOrderViewSet(viewsets.ModelViewSet):
             return CreateOrderSerializer
         return WebOrderSerializer
 
+    def list(self, request, *args, **kwargs):
+        """Override list to add error handling and debugging"""
+        try:
+            queryset = self.get_queryset()
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            import traceback
+            print(f">>> WEB ORDER LIST ERROR: {str(e)}")
+            print(traceback.format_exc())
+            return Response({
+                'error': 'Internal Server Error while fetching orders',
+                'detail': str(e)
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     def create(self, request, *args, **kwargs):
         """
         Create a simple order directly from POST data (Prototype)

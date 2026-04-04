@@ -81,15 +81,28 @@ class CreateOrderSerializer(serializers.Serializer):
 
 class WebOrderSerializer(serializers.ModelSerializer):
     """Serializer for listing user orders"""
-    status = serializers.CharField(source='status')
-    total = serializers.DecimalField(source='total_incl_tax', max_digits=12, decimal_places=2)
-    number = serializers.CharField()
-    date = serializers.DateTimeField(source='date_placed')
+    status = serializers.SerializerMethodField()
+    total = serializers.SerializerMethodField()
+    number = serializers.CharField(required=False, allow_null=True)
+    date = serializers.SerializerMethodField()
     items = serializers.SerializerMethodField()
     
     class Meta:
         model = get_model('order', 'Order')
         fields = ['id', 'number', 'status', 'total', 'date', 'items']
+    
+    def get_status(self, obj):
+        return getattr(obj, 'status', 'Pending') or 'Pending'
+        
+    def get_total(self, obj):
+        total = getattr(obj, 'total_incl_tax', 0)
+        return str(total) if total is not None else "0.00"
+        
+    def get_date(self, obj):
+        date = getattr(obj, 'date_placed', None)
+        if date:
+            return date.isoformat()
+        return None
         
     def get_items(self, obj):
         try:
