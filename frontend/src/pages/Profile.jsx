@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuthStore } from '../store/authStore';
 import { ordersAPI } from '../services/api';
-import { Package, User, Calendar, Clock, ArrowRight } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { Package, ShoppingBag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import './Profile.css';
 
@@ -12,20 +11,11 @@ const Profile = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchOrders = async () => {
-            try {
-                // DEMO MODE: Load from localStorage
-                const demoOrders = JSON.parse(localStorage.getItem('demo_orders') || '[]');
-                setOrders(demoOrders);
-            } catch (error) {
-                console.error('Error fetching orders:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         if (user) {
-            fetchOrders();
+            ordersAPI.getMyOrders()
+                .then(res => setOrders(res.data))
+                .catch(err => console.error('Error fetching orders:', err))
+                .finally(() => setLoading(false));
         }
     }, [user]);
 
@@ -49,9 +39,8 @@ const Profile = () => {
                         <span>{user.first_name?.[0] || user.username?.[0] || 'U'}</span>
                     </div>
                     <div className="profile-info">
-                        <h2>{user.first_name} {user.last_name}</h2>
+                        <h2>{user.first_name || user.username} {user.last_name}</h2>
                         <p>{user.email}</p>
-                        <p className="text-muted">Member since {new Date(user.date_joined || Date.now()).toLocaleDateString()}</p>
                     </div>
                 </div>
 
@@ -65,47 +54,61 @@ const Profile = () => {
                     {loading ? (
                         <p>Loading orders...</p>
                     ) : orders.length > 0 ? (
-                        <div className="orders-table-container">
-                            <table className="orders-table">
-                                <thead>
-                                    <tr>
-                                        <th>Order ID</th>
-                                        <th>Date</th>
-                                        <th>Total</th>
-                                        <th>Status</th>
-                                        <th>Items</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {orders.map((order) => (
-                                        <tr key={order.id}>
-                                            <td>#{order.id}</td>
-                                            <td>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                                    <Calendar size={14} className="text-muted" />
-                                                    {new Date(order.date).toLocaleDateString()}
+                        <div className="orders-list" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                            {orders.map((order) => (
+                                <div key={order.id} style={{
+                                    border: '1px solid #e5e7eb',
+                                    borderRadius: '0.75rem',
+                                    padding: '1.25rem',
+                                    background: 'white',
+                                    boxShadow: '0 1px 6px rgba(0,0,0,0.04)'
+                                }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                                        <div>
+                                            <strong style={{ fontSize: '1rem' }}>Order {order.number}</strong>
+                                            <div style={{ fontSize: '0.85rem', color: '#6B7280', marginTop: '0.15rem' }}>
+                                                {new Date(order.date).toLocaleDateString()}
+                                            </div>
+                                        </div>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                            <strong style={{ fontSize: '1.1rem' }}>€{parseFloat(order.total).toFixed(2)}</strong>
+                                            <span style={{
+                                                background: '#DEF7EC',
+                                                color: '#03543F',
+                                                padding: '0.25rem 0.75rem',
+                                                borderRadius: '2rem',
+                                                fontSize: '0.8rem',
+                                                fontWeight: '600'
+                                            }}>
+                                                {order.status}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {order.items && order.items.length > 0 && (
+                                        <div style={{ borderTop: '1px solid #f3f4f6', paddingTop: '0.75rem' }}>
+                                            {order.items.map((item, idx) => (
+                                                <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+                                                    <div style={{
+                                                        width: '40px', height: '40px', borderRadius: '0.4rem',
+                                                        background: '#f3f4f6', overflow: 'hidden', flexShrink: 0
+                                                    }}>
+                                                        {item.image && <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
+                                                    </div>
+                                                    <div style={{ flex: 1 }}>
+                                                        <div style={{ fontWeight: '500', fontSize: '0.9rem' }}>{item.title}</div>
+                                                        <div style={{ fontSize: '0.8rem', color: '#6B7280' }}>Qty: {item.quantity} × €{parseFloat(item.price).toFixed(2)}</div>
+                                                    </div>
                                                 </div>
-                                            </td>
-                                            <td><strong>€{order.total}</strong></td>
-                                            <td>
-                                                <span className={`status-badge status-${(order.status || 'pending').toLowerCase()}`}>
-                                                    {order.status}
-                                                </span>
-                                            </td>
-                                            <td>{order.items?.length || 0} items</td>
-                                            <td>
-                                                <button className="btn btn-sm btn-outline-primary">
-                                                    View Details
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
                         </div>
                     ) : (
                         <div className="empty-orders">
+                            <ShoppingBag size={48} color="#9CA3AF" style={{ margin: '0 auto 1rem', display: 'block' }} />
                             <p>You haven't placed any orders yet.</p>
                             <Link to="/products" className="btn btn-primary" style={{ marginTop: '1rem' }}>
                                 Start Shopping
