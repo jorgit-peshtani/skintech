@@ -92,22 +92,37 @@ class WebOrderSerializer(serializers.ModelSerializer):
         fields = ['id', 'number', 'status', 'total', 'date', 'items']
         
     def get_items(self, obj):
-        lines = obj.lines.all()
-        result = []
-        for line in lines:
-            image_url = None
-            if line.product:
-                primary = line.product.primary_image()
-                if primary:
-                    try:
-                        image_url = self.context['request'].build_absolute_uri(primary.original.url)
-                    except:
-                        pass
-            
-            result.append({
-                'title': line.title,
-                'quantity': line.quantity,
-                'price': str(line.line_price_incl_tax / line.quantity) if line.quantity else "0.00",
-                'image': image_url or '/api/placeholder/150/150'
-            })
-        return result
+        try:
+            lines = obj.lines.all()
+            result = []
+            for line in lines:
+                image_url = None
+                try:
+                    if line.product:
+                        primary = line.product.primary_image()
+                        if primary and primary.original:
+                            request = self.context.get('request')
+                            if request:
+                                image_url = request.build_absolute_uri(primary.original.url)
+                            else:
+                                image_url = primary.original.url
+                except Exception:
+                    pass
+                
+                # Safe price calculation
+                price = "0.00"
+                if line.quantity and line.line_price_incl_tax is not None:
+                    price = str(round(line.line_price_incl_tax / line.quantity, 2))
+                elif line.unit_price_incl_tax is not None:
+                    price = str(line.unit_price_incl_tax)
+                
+                result.append({
+                    'title': line.title or "Product",
+                    'quantity': line.quantity or 1,
+                    'price': price,
+                    'image': image_url or '/api/placeholder/150/150'
+                })
+            return result
+        except Exception as e:
+            print(f">>> ERROR in WebOrderSerializer.get_items: {str(e)}")
+            return []

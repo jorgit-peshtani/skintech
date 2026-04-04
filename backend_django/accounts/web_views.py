@@ -98,9 +98,12 @@ class WebOrderViewSet(viewsets.ModelViewSet):
             for item in data['items']:
                 try:
                     product = Product.objects.get(id=item['product_id'])
+                    stockrecord = product.stockrecords.first()
                     Line.objects.create(
                         order=order,
                         product=product,
+                        partner=stockrecord.partner if (stockrecord and stockrecord.partner) else None,
+                        partner_name=stockrecord.partner.name if (stockrecord and stockrecord.partner) else "Default",
                         partner_sku=f"SKU-{product.id}",
                         quantity=item['quantity'],
                         line_price_incl_tax=item['price'] * item['quantity'],
@@ -109,7 +112,8 @@ class WebOrderViewSet(viewsets.ModelViewSet):
                         line_price_before_discounts_excl_tax=(item['price'] * item['quantity']) / Decimal('1.2'),
                         unit_price_incl_tax=item['price'],
                         unit_price_excl_tax=item['price'] / Decimal('1.2'),
-                        title=product.title
+                        title=product.title,
+                        num_allocated=0 # Required by some versions of Oscar
                     )
                     
                     # Update stock (Simple)
