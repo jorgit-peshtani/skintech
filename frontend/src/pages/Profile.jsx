@@ -52,52 +52,49 @@ const Profile = () => {
                     </h3>
 
                     {loading ? (
-                        <p>Loading orders...</p>
+                        <div className="loading-spinner">
+                            <p>Loading your orders...</p>
+                        </div>
                     ) : orders.length > 0 ? (
-                        <div className="orders-list" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        <div className="orders-list">
                             {orders.map((order) => (
-                                <div key={order.id} style={{
-                                    border: '1px solid #e5e7eb',
-                                    borderRadius: '0.75rem',
-                                    padding: '1.25rem',
-                                    background: 'white',
-                                    boxShadow: '0 1px 6px rgba(0,0,0,0.04)'
-                                }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                                        <div>
-                                            <strong style={{ fontSize: '1rem' }}>Order {order.number}</strong>
-                                            <div style={{ fontSize: '0.85rem', color: '#6B7280', marginTop: '0.15rem' }}>
-                                                {new Date(order.date).toLocaleDateString()}
+                                <div key={order.id} className="order-card">
+                                    <div className="order-card-header">
+                                        <div className="order-main-info">
+                                            <div className="order-number">Order #{order.number}</div>
+                                            <div className="order-date">
+                                                Placed on {new Date(order.date).toLocaleDateString()}
                                             </div>
                                         </div>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                            <strong style={{ fontSize: '1.1rem' }}>€{parseFloat(order.total).toFixed(2)}</strong>
-                                            <span style={{
-                                                background: '#DEF7EC',
-                                                color: '#03543F',
-                                                padding: '0.25rem 0.75rem',
-                                                borderRadius: '2rem',
-                                                fontSize: '0.8rem',
-                                                fontWeight: '600'
-                                            }}>
-                                                {order.status}
+                                        
+                                        <div className="order-meta">
+                                            <div className="order-total">
+                                                €{parseFloat(order.total).toFixed(2)}
+                                            </div>
+                                            <span className={`status-badge status-${order.status?.toLowerCase().replace(/ /g, '-') || 'pending'}`}>
+                                                {order.status || 'Pending'}
                                             </span>
                                         </div>
                                     </div>
 
                                     {order.items && order.items.length > 0 && (
-                                        <div style={{ borderTop: '1px solid #f3f4f6', paddingTop: '0.75rem' }}>
+                                        <div className="order-items-list">
                                             {order.items.map((item, idx) => (
-                                                <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
-                                                    <div style={{
-                                                        width: '40px', height: '40px', borderRadius: '0.4rem',
-                                                        background: '#f3f4f6', overflow: 'hidden', flexShrink: 0
-                                                    }}>
-                                                        {item.image && <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
+                                                <div key={idx} className="order-item">
+                                                    <div className="order-item-image">
+                                                        {item.image ? (
+                                                            <img src={item.image} alt={item.title} />
+                                                        ) : (
+                                                            <div className="placeholder-image">
+                                                                <ShoppingBag size={20} />
+                                                            </div>
+                                                        )}
                                                     </div>
-                                                    <div style={{ flex: 1 }}>
-                                                        <div style={{ fontWeight: '500', fontSize: '0.9rem' }}>{item.title}</div>
-                                                        <div style={{ fontSize: '0.8rem', color: '#6B7280' }}>Qty: {item.quantity} × €{parseFloat(item.price).toFixed(2)}</div>
+                                                    <div className="order-item-details">
+                                                        <div className="order-item-name">{item.title}</div>
+                                                        <div className="order-item-meta">
+                                                            Qty: {item.quantity} × €{parseFloat(item.price).toFixed(2)}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             ))}
@@ -108,10 +105,10 @@ const Profile = () => {
                         </div>
                     ) : (
                         <div className="empty-orders">
-                            <ShoppingBag size={48} color="#9CA3AF" style={{ margin: '0 auto 1rem', display: 'block' }} />
+                            <ShoppingBag size={48} />
                             <p>You haven't placed any orders yet.</p>
-                            <Link to="/products" className="btn btn-primary" style={{ marginTop: '1rem' }}>
-                                Start Shopping
+                            <Link to="/products" className="btn btn-primary">
+                                Explore Products
                             </Link>
                         </div>
                     )}
