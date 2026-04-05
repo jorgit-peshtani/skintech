@@ -6,6 +6,7 @@ import { useAuthStore } from './store/authStore';
 // Layout
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 // Pages
 import Home from './pages/Home';
@@ -40,6 +41,7 @@ function App() {
 
     return (
         <Router>
+            <ScrollToTop />
             <div className="app">
                 <Navbar />
                 <main className="main-content">
