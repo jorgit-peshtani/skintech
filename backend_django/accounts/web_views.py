@@ -1,7 +1,8 @@
 """
 Custom API views for web frontend
 """
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, filters, status
+from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from oscar.core.loading import get_model
 Product = get_model('catalogue', 'Product')
@@ -19,6 +20,19 @@ class WebProductViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [AllowAny]
     filter_backends = [filters.SearchFilter]
     search_fields = ['title', 'description']
+    
+    def list(self, request, *args, **kwargs):
+        """Standard list with diagnostic fallback"""
+        try:
+            return super().list(request, *args, **kwargs)
+        except Exception as e:
+            import traceback
+            print(f">>> WEB PRODUCT LIST ERROR: {str(e)}")
+            print(traceback.format_exc())
+            return Response({
+                'error': 'Internal Server Error while fetching products',
+                'detail': str(e)
+            }, status=500)
     
     def get_queryset(self):
         """Filter products by category if provided"""
@@ -127,8 +141,7 @@ class WebOrderViewSet(viewsets.ModelViewSet):
                         line_price_before_discounts_excl_tax=(item['price'] * item['quantity']) / Decimal('1.2'),
                         unit_price_incl_tax=item['price'],
                         unit_price_excl_tax=item['price'] / Decimal('1.2'),
-                        title=product.title,
-                        num_allocated=0 # Required by some versions of Oscar
+                        title=product.title
                     )
                     
                     # Update stock (Simple)
