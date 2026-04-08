@@ -31,8 +31,15 @@ const Footer = () => {
                         </ul>
                     </div>
 
-
-
+                    {/* Support */}
+                    <div className="footer-section">
+                        <h4 className="footer-title">Support</h4>
+                        <ul className="footer-links">
+                            <li><Link to="/faq">FAQ</Link></li>
+                            <li><Link to="/privacy">Privacy Policy</Link></li>
+                            <li><Link to="/terms">Terms of Service</Link></li>
+                        </ul>
+                    </div>
 
                     {/* Contact */}
                     <div className="footer-section">

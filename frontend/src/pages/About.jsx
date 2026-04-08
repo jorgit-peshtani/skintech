@@ -69,28 +69,28 @@ const About = () => {
                                 <Users size={40} color="#7C7D80" />
                             </div>
                             <h3>Uendi Peza</h3>
-                            <span>CEO and Project Manager</span>
+                            <span>Project Manager & Desktop Developer</span>
                         </div>
                         <div className="team-member">
                             <div className="member-avatar">
                                 <Users size={40} color="#7C7D80" />
                             </div>
                             <h3>Elena Goçi</h3>
-                            <span>Graphic Designer & Desktop Backend</span>
+                            <span>Web Developer</span>
                         </div>
                         <div className="team-member">
                             <div className="member-avatar">
                                 <Users size={40} color="#7C7D80" />
                             </div>
                             <h3>Eriko Prençe</h3>
-                            <span>Android & iOS Developer</span>
+                            <span>Database Developer & UX Designer</span>
                         </div>
                         <div className="team-member">
                             <div className="member-avatar">
                                 <Users size={40} color="#7C7D80" />
                             </div>
                             <h3>Edmir Hoxha</h3>
-                            <span>Fullstack Developer</span>
+                            <span>Android Developer</span>
                         </div>
                     </div>
                 </div>
