@@ -2,7 +2,8 @@ import axios from 'axios';
 
 // Use environment variable for API URL - works for both local and production
 // Django Oscar backend (port 8000)
-const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:8000');
+const API_URL = import.meta.env.PROD ? '' : (import.meta.env.VITE_API_URL || 'http://localhost:8000');
+console.log('Production Mode:', import.meta.env.PROD, 'Final API_URL:', API_URL);
 
 console.log('API URL:', API_URL); // For debugging deployment
 
