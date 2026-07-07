@@ -1,29 +1,14 @@
 version: '3.8'
 
 services:
-  db:
-    image: postgres:15
-    container_name: skintech_db
-    restart: always
-    environment:
-      POSTGRES_DB: skintech
-      POSTGRES_USER: skintech_user
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-skintech_password}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-
   backend:
     build:
       context: ./backend_django
       dockerfile: Dockerfile
     container_name: skintech_backend
     restart: always
-    depends_on:
-      - db
     environment:
-      - DATABASE_URL=${DATABASE_URL:-postgres://skintech_user:${POSTGRES_PASSWORD:-skintech_password}@db:5432/skintech}
+      - DATABASE_URL=${DATABASE_URL}
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-django-insecure-(%gly^t^q9$$s$$!t2w(^@ya%addg=y5pz_i=ld*z^w05bk%sl5)}
       - DEBUG=${DJANGO_DEBUG:-False}
       # Update ALLOWED_HOSTS if you have a specific domain or IP
@@ -46,6 +31,5 @@ services:
       - "80:80"
 
 volumes:
-  postgres_data:
   static_volume:
   media_volume:
