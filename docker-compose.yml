@@ -23,16 +23,16 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgres://skintech_user:${POSTGRES_PASSWORD:-skintech_password}@db:5432/skintech
-      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-django-insecure-(%gly^t^q9$s$!t2w(^@ya%addg=y5pz_i=ld*z^w05bk%sl5)}
+      - DATABASE_URL=${DATABASE_URL:-postgres://skintech_user:${POSTGRES_PASSWORD:-skintech_password}@db:5432/skintech}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-django-insecure-(%gly^t^q9$$s$$!t2w(^@ya%addg=y5pz_i=ld*z^w05bk%sl5)}
       - DEBUG=${DJANGO_DEBUG:-False}
       # Update ALLOWED_HOSTS if you have a specific domain or IP
       - ALLOWED_HOSTS=localhost,127.0.0.1,backend,frontend,host.docker.internal,*
     volumes:
       - static_volume:/app/staticfiles
       - media_volume:/app/media
-    ports:
-      - "8000:8000"
+    # ports:
+    #   - "8000:8000"  # Removed to avoid host port conflicts; Nginx proxies it internally
 
   frontend:
     build:
