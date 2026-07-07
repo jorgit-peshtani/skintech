@@ -27,6 +27,8 @@ services:
     restart: always
     depends_on:
       - backend
+    volumes:
+      - media_volume:/app/media
     ports:
       - "80:80"
 
